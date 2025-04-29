@@ -1,0 +1,229 @@
+{
+  "common": {
+    "home": "Inicio",
+    "transactions": "Transacciones",
+    "disputes": "Disputas",
+    "recovery": "Recuperación",
+    "connectWallet": "Conectar Billetera",
+    "launchApp": "Iniciar Aplicación",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "warning": "Advertencia",
+    "info": "Información",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "submit": "Enviar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "view": "Ver",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "continue": "Continuar",
+    "finish": "Finalizar"
+  },
+  "header": {
+    "title": "Protocolo Phoenix",
+    "subtitle": "Recuperación de Contratos Inteligentes"
+  },
+  "home": {
+    "hero": {
+      "title": "Protocolo Phoenix",
+      "subtitle": "Recuperación de Contratos Inteligentes",
+      "description": "Interactúa con contratos inteligentes de manera legible, con confirmación de intención y seguridad de reversión, evitando errores comunes en transacciones.",
+      "cta": {
+        "primary": "Iniciar Aplicación",
+        "secondary": "Leer Documentación"
+      }
+    },
+    "features": {
+      "title": "Características Principales",
+      "intentRegistry": {
+        "title": "Registro de Intenciones",
+        "description": "Almacena tu intención de transacción en un registro inmutable antes de la ejecución, asegurando que tus acciones se verifiquen contra tus intenciones originales."
+      },
+      "transactionVerification": {
+        "title": "Verificación de Transacciones",
+        "description": "Compara automáticamente las transacciones ejecutadas con los parámetros previstos para detectar discrepancias en cantidades de tokens, destinatarios o deslizamiento."
+      },
+      "recoveryController": {
+        "title": "Controlador de Recuperación",
+        "description": "Gestiona reversiones de transacciones, recuperación de billeteras y restauración de activos a través de nuestro proceso de recuperación seguro y verificado."
+      }
+    },
+    "cases": {
+      "title": "Disputas y Reversiones Recientes",
+      "viewAll": "Ver Todos los Casos"
+    },
+    "cta": {
+      "title": "¿Listo para Asegurar tus Transacciones Blockchain?",
+      "description": "Únete a Protocolo Phoenix hoy y experimenta interacciones DeFi y NFT sin preocupaciones con mecanismos de recuperación incorporados.",
+      "primary": "Comenzar",
+      "secondary": "Para Desarrolladores"
+    }
+  },
+  "transactions": {
+    "title": "Panel de Transacciones",
+    "createNew": "Crear Nueva Transacción",
+    "selectType": "Selecciona el tipo de transacción e ingresa los detalles",
+    "intentSummary": "Resumen de Intención",
+    "reviewIntent": "Revisa tu intención de transacción antes de confirmar",
+    "noActiveIntent": "Crea una nueva intención para verla aquí",
+    "confirmIntent": "Confirmar Intención",
+    "rejectIntent": "Rechazar Intención",
+    "recentTransactions": "Transacciones Recientes",
+    "noTransactions": "Aún no hay transacciones. Crea tu primera intención para comenzar.",
+    "viewDetails": "Ver Detalles",
+    "types": {
+      "swap": "Intercambio de Tokens",
+      "transfer": "Transferencia de Tokens",
+      "stake": "Stake de Tokens",
+      "mint": "Acuñar NFT"
+    },
+    "fields": {
+      "fromToken": "Token de Origen",
+      "toToken": "Token de Destino",
+      "amount": "Cantidad",
+      "slippage": "Tolerancia de Deslizamiento (%)",
+      "recipient": "Dirección del Destinatario",
+      "duration": "Duración (días)",
+      "quantity": "Cantidad",
+      "price": "Precio"
+    },
+    "status": {
+      "pending": "PENDIENTE",
+      "confirmed": "CONFIRMADO",
+      "rejected": "RECHAZADO",
+      "executed": "EJECUTADO",
+      "disputed": "DISPUTADO",
+      "matched": "COINCIDENTE"
+    }
+  },
+  "disputes": {
+    "title": "Panel de Disputas",
+    "submitNew": "Enviar Nueva Disputa",
+    "stats": {
+      "total": "Total de Disputas",
+      "resolved": "Resueltas",
+      "underReview": "En Revisión",
+      "rejected": "Rechazadas"
+    },
+    "openCases": "Casos Abiertos",
+    "evidence": "Evidencia",
+    "resolution": "Resolución",
+    "daoVoting": "Votación DAO",
+    "inFavor": "A Favor",
+    "against": "En Contra",
+    "addEvidence": "Añadir Evidencia",
+    "voteInFavor": "Votar a Favor",
+    "voteAgainst": "Votar en Contra",
+    "viewFullDetails": "Ver Detalles Completos",
+    "status": {
+      "resolved": "Resuelto",
+      "underReview": "En Revisión",
+      "pendingEvidence": "Evidencia Pendiente",
+      "rejected": "Rechazado"
+    }
+  },
+  "recovery": {
+    "title": "Recuperación de Billetera",
+    "guardianSetup": {
+      "title": "Configuración de Guardianes",
+      "description": "Asigna contactos de confianza que puedan ayudarte a recuperar tu billetera",
+      "yourWallet": "Tu Dirección de Billetera",
+      "guardianAddress": "Dirección del Guardián",
+      "requiredGuardians": "{{required}} de {{total}} guardianes requeridos para recuperación",
+      "currentGuardians": "Guardianes Actuales",
+      "addGuardian": "Añadir Guardián",
+      "removeGuardian": "Eliminar",
+      "updateConfig": "Actualizar Configuración de Guardianes"
+    },
+    "recoverWallet": {
+      "title": "Recuperar Billetera",
+      "description": "Inicia el proceso de recuperación para una billetera perdida",
+      "walletToRecover": "Dirección de Billetera a Recuperar",
+      "newWallet": "Nueva Dirección de Billetera",
+      "reason": "Motivo de Recuperación",
+      "initiateRecovery": "Iniciar Recuperación",
+      "cancelRecovery": "Cancelar Recuperación",
+      "completeRecovery": "Completar Recuperación",
+      "status": "Estado de Recuperación",
+      "guardianApprovals": "Aprobaciones de Guardianes",
+      "approved": "Aprobado",
+      "pending": "Pendiente",
+      "reasons": {
+        "lostKey": "Clave Privada Perdida",
+        "compromised": "Billetera Comprometida",
+        "hardware": "Fallo de Hardware",
+        "other": "Otro"
+      }
+    },
+    "guardianLogin": {
+      "title": "Inicio de Sesión de Guardián",
+      "approveRequest": "Aprobar Solicitud de Recuperación",
+      "description": "Verifica y aprueba una solicitud de recuperación de billetera como guardián",
+      "recoveryId": "ID de Solicitud de Recuperación",
+      "recoveryDetails": "Detalles de Recuperación",
+      "walletToRecover": "Billetera a Recuperar",
+      "newWallet": "Nueva Billetera",
+      "initiatedBy": "Iniciado Por",
+      "reason": "Motivo",
+      "requested": "Solicitado",
+      "guardianSignature": "Firma del Guardián",
+      "signatureHelp": "Esto requerirá una firma de tu billetera para verificar tu identidad como guardián.",
+      "rejectRequest": "Rechazar Solicitud",
+      "approveRecovery": "Aprobar Recuperación"
+    }
+  },
+  "wallet": {
+    "connect": "Conectar Billetera",
+    "disconnect": "Desconectar Billetera",
+    "connected": "Billetera Conectada",
+    "balance": "Saldo",
+    "network": "Red",
+    "copy": "Copiar Dirección",
+    "view": "Ver en Explorador",
+    "switch": "Cambiar Red",
+    "options": {
+      "metamask": {
+        "name": "MetaMask",
+        "description": "Conectar a tu Billetera MetaMask"
+      },
+      "core": {
+        "name": "Core Wallet",
+        "description": "Extensión Core Wallet de Avalanche"
+      },
+      "phantom": {
+        "name": "Phantom",
+        "description": "Conectar a Phantom (Solana)"
+      },
+      "walletconnect": {
+        "name": "WalletConnect",
+        "description": "Conectar con WalletConnect"
+      },
+      "coinbase": {
+        "name": "Coinbase Wallet",
+        "description": "Conectar a Coinbase Wallet"
+      },
+      "trust": {
+        "name": "Trust Wallet",
+        "description": "Conectar a Trust Wallet"
+      }
+    }
+  },
+  "errors": {
+    "walletNotConnected": "Billetera no conectada",
+    "walletNotInstalled": "Billetera no instalada",
+    "networkNotSupported": "Red no soportada",
+    "transactionFailed": "Transacción fallida",
+    "insufficientFunds": "Fondos insuficientes",
+    "invalidAddress": "Dirección inválida",
+    "invalidAmount": "Cantidad inválida",
+    "invalidSignature": "Firma inválida",
+    "userRejected": "Usuario rechazó la solicitud",
+    "unknownError": "Ocurrió un error desconocido"
+  }
+}

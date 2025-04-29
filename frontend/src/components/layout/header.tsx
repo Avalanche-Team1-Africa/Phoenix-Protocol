@@ -7,6 +7,8 @@ import { WalletConnectModal } from "@/components/forms/wallet-connect-modal";
 import { useWallet } from "@/context/wallet-context";
 import { formatAddress } from "@/lib/utils/blockchain";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { LanguageSelector } from "@/components/ui/language-selector";
+import { NotificationCenter } from "@/components/ui/notification-center";
 import { Menu, X } from "lucide-react";
 
 export function Header() {
@@ -52,6 +54,7 @@ export function Header() {
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
+          <LanguageSelector />
           
           {wallet.connected ? (
             <Button

@@ -1,0 +1,229 @@
+{
+  "common": {
+    "home": "Home",
+    "transactions": "Transactions",
+    "disputes": "Disputes",
+    "recovery": "Recovery",
+    "connectWallet": "Connect Wallet",
+    "launchApp": "Launch App",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "continue": "Continue",
+    "finish": "Finish"
+  },
+  "header": {
+    "title": "Phoenix Protocol",
+    "subtitle": "Smart Contract Recovery"
+  },
+  "home": {
+    "hero": {
+      "title": "Phoenix Protocol",
+      "subtitle": "Smart Contract Recovery",
+      "description": "Interact with smart contracts in a human-readable, intent-confirmed, and rollback-safe manner, preventing common transaction mishaps.",
+      "cta": {
+        "primary": "Launch App",
+        "secondary": "Read Documentation"
+      }
+    },
+    "features": {
+      "title": "Core Features",
+      "intentRegistry": {
+        "title": "Intent Registry",
+        "description": "Store your transaction intent in an immutable registry before execution, ensuring your actions are verified against your original intentions."
+      },
+      "transactionVerification": {
+        "title": "Transaction Verification",
+        "description": "Automatically compare executed transactions against your intended parameters to detect mismatches in token amounts, recipients, or slippage."
+      },
+      "recoveryController": {
+        "title": "Recovery Controller",
+        "description": "Manage transaction rollbacks, wallet recovery, and asset restoration through our secure and verified recovery process."
+      }
+    },
+    "cases": {
+      "title": "Recent Disputes & Rollbacks",
+      "viewAll": "View All Cases"
+    },
+    "cta": {
+      "title": "Ready to Secure Your Blockchain Transactions?",
+      "description": "Join Phoenix Protocol today and experience worry-free DeFi and NFT interactions with built-in recovery mechanisms.",
+      "primary": "Get Started",
+      "secondary": "For Developers"
+    }
+  },
+  "transactions": {
+    "title": "Transaction Dashboard",
+    "createNew": "Create New Transaction",
+    "selectType": "Select transaction type and enter details",
+    "intentSummary": "Intent Summary",
+    "reviewIntent": "Review your transaction intent before confirming",
+    "noActiveIntent": "Create a new intent to see the summary here",
+    "confirmIntent": "Confirm Intent",
+    "rejectIntent": "Reject Intent",
+    "recentTransactions": "Recent Transactions",
+    "noTransactions": "No transactions yet. Create your first intent to get started.",
+    "viewDetails": "View Details",
+    "types": {
+      "swap": "Token Swap",
+      "transfer": "Token Transfer",
+      "stake": "Stake Tokens",
+      "mint": "Mint NFT"
+    },
+    "fields": {
+      "fromToken": "From Token",
+      "toToken": "To Token",
+      "amount": "Amount",
+      "slippage": "Slippage Tolerance (%)",
+      "recipient": "Recipient Address",
+      "duration": "Duration (days)",
+      "quantity": "Quantity",
+      "price": "Price"
+    },
+    "status": {
+      "pending": "PENDING",
+      "confirmed": "CONFIRMED",
+      "rejected": "REJECTED",
+      "executed": "EXECUTED",
+      "disputed": "DISPUTED",
+      "matched": "MATCHED"
+    }
+  },
+  "disputes": {
+    "title": "Dispute Dashboard",
+    "submitNew": "Submit New Dispute",
+    "stats": {
+      "total": "Total Disputes",
+      "resolved": "Resolved",
+      "underReview": "Under Review",
+      "rejected": "Rejected"
+    },
+    "openCases": "Open Cases",
+    "evidence": "Evidence",
+    "resolution": "Resolution",
+    "daoVoting": "DAO Voting",
+    "inFavor": "In Favor",
+    "against": "Against",
+    "addEvidence": "Add Evidence",
+    "voteInFavor": "Vote In Favor",
+    "voteAgainst": "Vote Against",
+    "viewFullDetails": "View Full Details",
+    "status": {
+      "resolved": "Resolved",
+      "underReview": "Under Review",
+      "pendingEvidence": "Pending Evidence",
+      "rejected": "Rejected"
+    }
+  },
+  "recovery": {
+    "title": "Wallet Recovery",
+    "guardianSetup": {
+      "title": "Guardian Setup",
+      "description": "Assign trusted contacts who can help recover your wallet",
+      "yourWallet": "Your Wallet Address",
+      "guardianAddress": "Guardian Address",
+      "requiredGuardians": "{{required}} of {{total}} guardians required for recovery",
+      "currentGuardians": "Current Guardians",
+      "addGuardian": "Add Guardian",
+      "removeGuardian": "Remove",
+      "updateConfig": "Update Guardian Configuration"
+    },
+    "recoverWallet": {
+      "title": "Recover Wallet",
+      "description": "Initiate the recovery process for a lost wallet",
+      "walletToRecover": "Wallet Address to Recover",
+      "newWallet": "New Wallet Address",
+      "reason": "Reason for Recovery",
+      "initiateRecovery": "Initiate Recovery",
+      "cancelRecovery": "Cancel Recovery",
+      "completeRecovery": "Complete Recovery",
+      "status": "Recovery Status",
+      "guardianApprovals": "Guardian Approvals",
+      "approved": "Approved",
+      "pending": "Pending",
+      "reasons": {
+        "lostKey": "Lost Private Key",
+        "compromised": "Compromised Wallet",
+        "hardware": "Hardware Failure",
+        "other": "Other"
+      }
+    },
+    "guardianLogin": {
+      "title": "Guardian Login",
+      "approveRequest": "Approve Recovery Request",
+      "description": "Verify and approve a wallet recovery request as a guardian",
+      "recoveryId": "Recovery Request ID",
+      "recoveryDetails": "Recovery Details",
+      "walletToRecover": "Wallet to Recover",
+      "newWallet": "New Wallet",
+      "initiatedBy": "Initiated By",
+      "reason": "Reason",
+      "requested": "Requested",
+      "guardianSignature": "Guardian Signature",
+      "signatureHelp": "This will require a signature from your wallet to verify your identity as a guardian.",
+      "rejectRequest": "Reject Request",
+      "approveRecovery": "Approve Recovery"
+    }
+  },
+  "wallet": {
+    "connect": "Connect Wallet",
+    "disconnect": "Disconnect Wallet",
+    "connected": "Connected Wallet",
+    "balance": "Balance",
+    "network": "Network",
+    "copy": "Copy Address",
+    "view": "View on Explorer",
+    "switch": "Switch Network",
+    "options": {
+      "metamask": {
+        "name": "MetaMask",
+        "description": "Connect to your MetaMask Wallet"
+      },
+      "core": {
+        "name": "Core Wallet",
+        "description": "Avalanche's Core Wallet Extension"
+      },
+      "phantom": {
+        "name": "Phantom",
+        "description": "Connect to Phantom (Solana)"
+      },
+      "walletconnect": {
+        "name": "WalletConnect",
+        "description": "Connect with WalletConnect"
+      },
+      "coinbase": {
+        "name": "Coinbase Wallet",
+        "description": "Connect to Coinbase Wallet"
+      },
+      "trust": {
+        "name": "Trust Wallet",
+        "description": "Connect to Trust Wallet"
+      }
+    }
+  },
+  "errors": {
+    "walletNotConnected": "Wallet not connected",
+    "walletNotInstalled": "Wallet not installed",
+    "networkNotSupported": "Network not supported",
+    "transactionFailed": "Transaction failed",
+    "insufficientFunds": "Insufficient funds",
+    "invalidAddress": "Invalid address",
+    "invalidAmount": "Invalid amount",
+    "invalidSignature": "Invalid signature",
+    "userRejected": "User rejected the request",
+    "unknownError": "Unknown error occurred"
+  }
+}
