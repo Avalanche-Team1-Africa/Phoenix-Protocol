@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { WalletProvider } from "@/context/wallet-context";
 import { ThemeProvider } from "@/context/theme-provider";
+import { I18nProvider } from "@/context/i18n-provider";
 import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
@@ -39,14 +40,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <WalletProvider>
-            <div className="flex min-h-screen flex-col">
-              <Header />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
-            <Toaster />
-          </WalletProvider>
+          <I18nProvider>
+            <WalletProvider>
+              <div className="flex min-h-screen flex-col">
+                <Header />
+                <main className="flex-1">{children}</main>
+                <Footer />
+              </div>
+              <Toaster />
+            </WalletProvider>
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>
