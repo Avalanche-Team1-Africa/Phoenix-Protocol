@@ -115,33 +115,82 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
 
         {wallet.connected ? (
           <div className="space-y-4">
-            <div className="p-4 border rounded-lg">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm text-muted-foreground">Connected Wallet</span>
-                <span className="text-sm font-medium capitalize">{wallet.walletType}</span>
+            <div className="p-4 border rounded-lg bg-muted/30">
+              <div className="flex items-center mb-4">
+                <div className="w-10 h-10 rounded-full bg-orange-500/10 flex items-center justify-center mr-3">
+                  <Image
+                    src={`/wallets/${wallet.walletType || 'metamask'}.svg`}
+                    alt={wallet.walletType || 'wallet'}
+                    width={24}
+                    height={24}
+                  />
+                </div>
+                <div>
+                  <h4 className="font-medium capitalize">{wallet.walletType} Wallet</h4>
+                  <p className="text-xs text-muted-foreground">Connected</p>
+                </div>
               </div>
-              <div className="font-mono text-lg mb-2">{formatAddress(wallet.address)}</div>
-              <div className="flex justify-between text-sm">
-                <span>Balance:</span>
-                <span>{parseFloat(wallet.balance).toFixed(4)} ETH</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span>Network:</span>
-                <span>
-                  {wallet.chainId === 1 ? "Ethereum Mainnet" : 
-                   wallet.chainId === 43114 ? "Avalanche C-Chain" : 
-                   `Chain ID: ${wallet.chainId}`}
-                </span>
+              
+              <div className="space-y-3">
+                <div className="bg-background p-3 rounded-md">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-sm text-muted-foreground">Address</span>
+                    <button 
+                      className="text-xs text-orange-500 hover:text-orange-600"
+                      onClick={() => navigator.clipboard.writeText(wallet.address)}
+                    >
+                      Copy
+                    </button>
+                  </div>
+                  <div className="font-mono text-sm">{formatAddress(wallet.address, 12)}</div>
+                </div>
+                
+                <div className="bg-background p-3 rounded-md">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-sm text-muted-foreground">Balance</span>
+                    <span className="text-xs text-orange-500">Native Token</span>
+                  </div>
+                  <div className="font-medium">
+                    {parseFloat(wallet.balance).toFixed(4)} 
+                    {wallet.chainId === 43114 || wallet.chainId === 43113 ? " AVAX" : 
+                     wallet.chainId === 2 || wallet.chainId === 3 ? " ADA" : " ETH"}
+                  </div>
+                </div>
+                
+                <div className="bg-background p-3 rounded-md">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-sm text-muted-foreground">Network</span>
+                    <span className="text-xs px-2 py-0.5 bg-green-500/10 text-green-500 rounded-full">Connected</span>
+                  </div>
+                  <div className="font-medium">
+                    {wallet.chainId === 1 ? "Ethereum Mainnet" : 
+                     wallet.chainId === 11155111 ? "Sepolia Testnet" :
+                     wallet.chainId === 43114 ? "Avalanche C-Chain" : 
+                     wallet.chainId === 43113 ? "Avalanche Fuji Testnet" :
+                     wallet.chainId === 2 ? "Cardano Mainnet" :
+                     wallet.chainId === 3 ? "Cardano Testnet" :
+                     `Chain ID: ${wallet.chainId}`}
+                  </div>
+                </div>
               </div>
             </div>
             
-            <Button
-              variant="outline"
-              className="w-full"
-              onClick={disconnect}
-            >
-              Disconnect Wallet
-            </Button>
+            <div className="flex space-x-3">
+              <Button
+                variant="outline"
+                className="flex-1"
+                onClick={disconnect}
+              >
+                Disconnect
+              </Button>
+              <Button
+                variant="gradient"
+                className="flex-1"
+                onClick={onClose}
+              >
+                Continue
+              </Button>
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

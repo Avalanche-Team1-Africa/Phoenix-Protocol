@@ -18,6 +18,10 @@ interface SecurityContextType {
   isHardwareWalletConnected: boolean;
   connectHardwareWallet: (type: string) => Promise<boolean>;
   disconnectHardwareWallet: () => void;
+  isSecurityModalOpen: boolean;
+  openSecurityModal: (action: "enable" | "disable") => void;
+  closeSecurityModal: () => void;
+  securityModalAction: "enable" | "disable";
 }
 
 const SecurityContext = createContext<SecurityContextType | undefined>(undefined);
@@ -32,6 +36,8 @@ export function SecurityProvider({ children }: { children: React.ReactNode }) {
   const [lastActivity, setLastActivity] = useState(Date.now());
   const [sessionTimeout, setSessionTimeout] = useState(30 * 60 * 1000); // 30 minutes by default
   const [isHardwareWalletConnected, setIsHardwareWalletConnected] = useState(false);
+  const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
+  const [securityModalAction, setSecurityModalAction] = useState<"enable" | "disable">("enable");
   
   // Load security settings from localStorage on mount
   useEffect(() => {
@@ -180,6 +186,17 @@ export function SecurityProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem("phoenixHardwareWalletType");
   };
   
+  // Open security modal
+  const openSecurityModal = (action: "enable" | "disable") => {
+    setSecurityModalAction(action);
+    setIsSecurityModalOpen(true);
+  };
+  
+  // Close security modal
+  const closeSecurityModal = () => {
+    setIsSecurityModalOpen(false);
+  };
+  
   const value = {
     isTwoFactorEnabled,
     isSessionActive,
@@ -194,6 +211,10 @@ export function SecurityProvider({ children }: { children: React.ReactNode }) {
     isHardwareWalletConnected,
     connectHardwareWallet,
     disconnectHardwareWallet,
+    isSecurityModalOpen,
+    openSecurityModal,
+    closeSecurityModal,
+    securityModalAction,
   };
   
   return (
