@@ -2,9 +2,12 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { ethers } from "ethers";
+import { connectWallet, disconnectWallet, WalletType as BlockchainWalletType } from "@/lib/blockchain/wallet-connect";
+import { CHAIN_IDS, getChainMetadata, RPC_URLS } from "@/lib/blockchain/providers";
+import { getTokenBalance } from "@/lib/blockchain/transactions";
 
 // Define wallet types
-export type WalletType = "metamask" | "core" | "phantom" | "walletconnect" | "coinbase" | "brave" | "trust";
+export type WalletType = BlockchainWalletType | "core" | "phantom" | "brave" | "trust";
 
 interface WalletInfo {
   address: string;
@@ -108,11 +111,30 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
 
   const updateWalletInfo = async (address: string, provider: any, walletType: WalletType | null) => {
     try {
-      const ethersProvider = new ethers.BrowserProvider(provider);
-      const network = await ethersProvider.getNetwork();
-      const chainId = Number(network.chainId);
-      const balanceWei = await ethersProvider.getBalance(address);
-      const balance = ethers.formatEther(balanceWei);
+      let chainId = wallet.chainId;
+      let balance = "0";
+      
+      // For EVM chains, get network and balance
+      if (provider) {
+        const ethersProvider = new ethers.BrowserProvider(provider);
+        const network = await ethersProvider.getNetwork();
+        chainId = Number(network.chainId);
+        
+        // Get token balance using our blockchain integration
+        try {
+          const balanceInfo = await getTokenBalance(null, address, chainId);
+          balance = balanceInfo.balance;
+        } catch (error) {
+          console.error("Error getting token balance:", error);
+          // Fallback to basic balance check
+          const balanceWei = await ethersProvider.getBalance(address);
+          balance = ethers.formatEther(balanceWei);
+        }
+      } else if (walletType === "cardano") {
+        // For Cardano, use different approach
+        chainId = CHAIN_IDS.CARDANO_TESTNET;
+        balance = "0"; // In a real app, we'd fetch the ADA balance
+      }
 
       setWallet({
         address,
@@ -138,55 +160,26 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
     setError(null);
     
     try {
-      let provider;
+      // Use our blockchain integration library
+      const walletInfo = await connectWallet(walletType as BlockchainWalletType, CHAIN_IDS.AVALANCHE_FUJI);
       
-      switch (walletType) {
-        case "metamask":
-          if (!window.ethereum) {
-            throw new Error("MetaMask is not installed");
-          }
-          provider = window.ethereum;
-          break;
-          
-        case "core":
-          if (!window.avalanche) {
-            throw new Error("Core Wallet is not installed");
-          }
-          provider = window.avalanche;
-          break;
-          
-        case "phantom":
-          if (!window.phantom?.solana) {
-            throw new Error("Phantom wallet is not installed");
-          }
-          // For Phantom (Solana), we'd need a different approach
-          // This is a simplified example
-          provider = window.phantom.solana;
-          break;
-          
-        case "walletconnect":
-          // WalletConnect implementation would go here
-          throw new Error("WalletConnect integration not implemented yet");
-          
-        case "coinbase":
-          if (!window.coinbaseWalletExtension) {
-            throw new Error("Coinbase Wallet is not installed");
-          }
-          provider = window.coinbaseWalletExtension;
-          break;
-          
-        default:
-          throw new Error(`Unsupported wallet type: ${walletType}`);
+      // Update wallet state with the connected wallet info
+      setWallet({
+        address: walletInfo.address,
+        chainId: walletInfo.chainId,
+        balance: "0", // We'll fetch this in updateWalletInfo
+        provider: walletInfo.provider,
+        connected: walletInfo.connected,
+        walletType: walletType,
+      });
+      
+      // Fetch additional wallet info like balance
+      if (walletInfo.connected) {
+        await updateWalletInfo(walletInfo.address, walletInfo.provider, walletType);
       }
       
-      // Request account access
-      const accounts = await provider.request({ method: "eth_requestAccounts" });
-      const address = accounts[0];
-      
-      await updateWalletInfo(address, provider, walletType);
-      
       setIsConnecting(false);
-      return true;
+      return walletInfo.connected;
     } catch (error: any) {
       console.error("Wallet connection error:", error);
       setError(error.message || "Failed to connect wallet");
@@ -196,6 +189,10 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
   };
 
   const disconnect = () => {
+    // Use our blockchain integration to disconnect
+    disconnectWallet();
+    
+    // Reset wallet state
     setWallet(initialWalletState);
     localStorage.removeItem("phoenixWalletType");
   };
@@ -207,24 +204,58 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
     }
 
     try {
+      // Get chain metadata
+      const chainMetadata = getChainMetadata(chainId);
+      if (!chainMetadata) {
+        setError(`Chain ID ${chainId} is not supported`);
+        return false;
+      }
+      
       // Convert chainId to hex
       const chainIdHex = `0x${chainId.toString(16)}`;
       
-      await wallet.provider.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: chainIdHex }],
-      });
+      try {
+        // Try to switch to the chain
+        await wallet.provider.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: chainIdHex }],
+        });
+      } catch (switchError: any) {
+        // If the chain hasn't been added to the user's wallet
+        if (switchError.code === 4902) {
+          // Add the chain to the wallet
+          await wallet.provider.request({
+            method: "wallet_addEthereumChain",
+            params: [
+              {
+                chainId: chainIdHex,
+                chainName: chainMetadata.name,
+                nativeCurrency: chainMetadata.nativeCurrency,
+                rpcUrls: [RPC_URLS[chainId]],
+                blockExplorerUrls: [
+                  chainId === CHAIN_IDS.ETHEREUM_MAINNET
+                    ? "https://etherscan.io"
+                    : chainId === CHAIN_IDS.ETHEREUM_SEPOLIA
+                    ? "https://sepolia.etherscan.io"
+                    : chainId === CHAIN_IDS.AVALANCHE_MAINNET
+                    ? "https://snowtrace.io"
+                    : "https://testnet.snowtrace.io",
+                ],
+              },
+            ],
+          });
+        } else {
+          throw switchError;
+        }
+      }
+      
+      // Update wallet info after chain switch
+      await updateWalletInfo(wallet.address, wallet.provider, wallet.walletType);
       
       return true;
     } catch (error: any) {
-      // If the chain hasn't been added to the user's wallet
-      if (error.code === 4902) {
-        // Implementation to add the chain would go here
-        setError("This chain needs to be added to your wallet first");
-      } else {
-        console.error("Error switching chain:", error);
-        setError(error.message || "Failed to switch chain");
-      }
+      console.error("Error switching chain:", error);
+      setError(error.message || "Failed to switch chain");
       return false;
     }
   };

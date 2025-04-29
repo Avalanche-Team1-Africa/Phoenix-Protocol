@@ -10,12 +10,14 @@ import { formatAddress } from "@/lib/utils/blockchain";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { LanguageSelector } from "@/components/ui/language-selector";
 import { NotificationCenter } from "@/components/ui/notification-center";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Shield, HelpCircle } from "lucide-react";
+import { useOnboarding } from "@/context/onboarding-provider";
 
 export function Header() {
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { wallet } = useWallet();
+  const { showTutorial } = useOnboarding();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -47,6 +49,12 @@ export function Header() {
               Transactions
             </Link>
             <Link
+              href="/analytics"
+              className="text-sm font-medium transition-colors hover:text-primary"
+            >
+              Analytics
+            </Link>
+            <Link
               href="/disputes"
               className="text-sm font-medium transition-colors hover:text-primary"
             >
@@ -64,6 +72,21 @@ export function Header() {
           <ThemeToggle />
           <LanguageSelector />
           <NotificationCenter />
+          <Link href="/settings/security" className="hidden md:flex">
+            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full">
+              <Shield className="h-4 w-4" />
+              <span className="sr-only">Security Settings</span>
+            </Button>
+          </Link>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="h-9 w-9 rounded-full hidden md:flex"
+            onClick={showTutorial}
+          >
+            <HelpCircle className="h-4 w-4" />
+            <span className="sr-only">Help</span>
+          </Button>
           
           {wallet.connected ? (
             <Button
@@ -161,6 +184,13 @@ export function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Transactions
+              </Link>
+              <Link
+                href="/analytics"
+                className="text-sm font-medium transition-colors hover:text-primary"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Analytics
               </Link>
               <Link
                 href="/disputes"

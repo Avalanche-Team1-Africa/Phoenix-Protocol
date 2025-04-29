@@ -6,7 +6,10 @@ import { Footer } from "@/components/layout/footer";
 import { WalletProvider } from "@/context/wallet-context";
 import { ThemeProvider } from "@/context/theme-provider";
 import { I18nProvider } from "@/context/i18n-provider";
+import { SecurityProvider } from "@/context/security-provider";
+import { OnboardingProvider } from "@/context/onboarding-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { ServiceWorkerInit } from "@/app/service-worker-init";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,12 +45,17 @@ export default function RootLayout({
         >
           <I18nProvider>
             <WalletProvider>
-              <div className="flex min-h-screen flex-col">
-                <Header />
-                <main className="flex-1">{children}</main>
-                <Footer />
-              </div>
-              <Toaster />
+              <SecurityProvider>
+                <OnboardingProvider>
+                  <div className="flex min-h-screen flex-col">
+                    <Header />
+                    <main className="flex-1">{children}</main>
+                    <Footer />
+                  </div>
+                  <Toaster />
+                  <ServiceWorkerInit />
+                </OnboardingProvider>
+              </SecurityProvider>
             </WalletProvider>
           </I18nProvider>
         </ThemeProvider>
