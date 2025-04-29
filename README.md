@@ -117,9 +117,40 @@ Phoenix Protocol is a smart contract recovery and UX protection middleware built
 
 ---
 
-## 8. Developer Integration
+## 8. Smart Contracts
 
-### 8.1 Phoenix SDK Features
+### 8.1 Core Contracts
+The Phoenix Protocol consists of four main smart contracts:
+
+1. **PhoenixProtocol**: The main contract that serves as the entry point for the protocol. It handles user intents, transaction execution, and recovery processes.
+
+2. **IntentRegistry**: Stores and manages user intents for transactions. Intents represent a user's desire to perform a specific action, which can be executed later by the protocol.
+
+3. **RecoveryModule**: Manages the recovery process for transactions, allowing users to request recovery of funds and administrators to approve or reject these requests.
+
+4. **TokenVault**: Serves as a secure vault for storing tokens used in the protocol. It handles deposits, withdrawals, and transfers of both native and ERC20 tokens.
+
+### 8.2 Contract Deployment
+To deploy the Phoenix Protocol contracts:
+
+```bash
+# Install dependencies
+cd contracts
+npm install
+
+# Compile contracts
+npx hardhat compile
+
+# Deploy to testnet
+npm run deploy:testnet
+
+# Verify contracts on testnet
+npm run verify:testnet
+```
+
+### 8.3 Developer Integration
+
+#### Phoenix SDK Features
 - `initPhoenix(dAppId)` – Initializes middleware
 - `createIntent(txType, payload)` – Logs intent pre-execution
 - `verifyExecution(intentHash, txReceipt)` – Verifies actual transaction
@@ -127,13 +158,34 @@ Phoenix Protocol is a smart contract recovery and UX protection middleware built
 - `submitDispute(txId, evidence)` – Sends case to DAO
 - `registerGuardian(address)` – Assigns recovery wallet
 
-### 8.2 Example Integration (Solidity)
+#### Example Integration (Solidity)
 ```solidity
 function swapTokens(address tokenIn, address tokenOut, uint amount) public {
     require(verifyIntent(msg.sender, tokenIn, tokenOut, amount), "Invalid intent");
     _swap(tokenIn, tokenOut, amount);
     logExecution(msg.sender, tx.origin, tokenIn, tokenOut, amount);
 }
+```
+
+### 8.4 Contract Interaction Scripts
+The Phoenix Protocol includes several scripts to interact with the deployed contracts:
+
+- **create-intent.js**: Create a new intent in the protocol
+- **execute-intent.js**: Execute an existing intent
+- **request-recovery.js**: Request recovery for a transaction
+- **approve-recovery.js**: Approve a recovery request (admin only)
+- **execute-recovery.js**: Execute an approved recovery
+
+Example usage:
+```bash
+# Create an intent to send 0.1 ETH to a recipient
+npx hardhat run scripts/create-intent.js --network fuji 0x0000000000000000000000000000000000000000 0.1 0xRecipientAddress 24
+
+# Execute an intent
+npx hardhat run scripts/execute-intent.js --network fuji 0xIntentId
+
+# Request recovery for a transaction
+npx hardhat run scripts/request-recovery.js --network fuji 0xTransactionId "Transaction sent to wrong address"
 ```
 
 ---
