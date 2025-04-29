@@ -29,7 +29,7 @@ export function Header() {
               height={40} 
               className="mr-2"
             />
-            <span className="text-2xl font-bold bg-phoenix-gradient bg-clip-text text-transparent">
+            <span className="text-2xl font-bold text-phoenix-gradient">
               Phoenix Protocol
             </span>
           </Link>
@@ -95,7 +95,23 @@ export function Header() {
             className="hidden md:flex"
           >
             <Link href="/transactions">
-              Launch App
+              <span className="flex items-center">
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  className="h-4 w-4 mr-1" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                >
+                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                  <polyline points="10 17 15 12 10 7"></polyline>
+                  <line x1="15" y1="12" x2="3" y2="12"></line>
+                </svg>
+                Manage Transactions
+              </span>
             </Link>
           </Button>
           
@@ -127,7 +143,7 @@ export function Header() {
                 height={32} 
                 className="mr-2"
               />
-              <span className="text-xl font-bold bg-phoenix-gradient bg-clip-text text-transparent">
+              <span className="text-xl font-bold text-phoenix-gradient">
                 Phoenix Protocol
               </span>
             </div>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Core Wallet</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="core-wallet">
+            <rect id="Rectangle" fill="#E84142" x="0" y="0" width="512" height="512" rx="256"></rect>
+            <path d="M367.24,338.79 L367.24,173.21 C367.24,155.09 352.91,140.76 334.79,140.76 L169.21,140.76 C151.09,140.76 136.76,155.09 136.76,173.21 L136.76,338.79 C136.76,356.91 151.09,371.24 169.21,371.24 L334.79,371.24 C352.91,371.24 367.24,356.91 367.24,338.79 Z M334.79,338.79 L169.21,338.79 L169.21,173.21 L334.79,173.21 L334.79,338.79 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

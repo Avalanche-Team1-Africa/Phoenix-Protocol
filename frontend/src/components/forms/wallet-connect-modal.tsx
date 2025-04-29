@@ -1,7 +1,11 @@
+"use client";
+
 import React from "react";
+import Image from "next/image";
 import { useWallet, WalletType } from "@/context/wallet-context";
 import { Button } from "@/components/ui/button";
 import { formatAddress } from "@/lib/utils/blockchain";
+import { motion } from "framer-motion";
 
 interface WalletOption {
   id: WalletType;
@@ -66,14 +70,43 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
 
   if (!isOpen) return null;
 
+  // Animation variants
+  const overlayVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.3 } }
+  };
+
+  const modalVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.4,
+        type: "spring",
+        stiffness: 300,
+        damping: 25
+      } 
+    }
+  };
+
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-background rounded-lg shadow-lg max-w-md w-full p-6 m-4">
+    <motion.div 
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      variants={overlayVariants}
+    >
+      <motion.div 
+        className="bg-background rounded-lg shadow-lg max-w-md w-full p-6 m-4"
+        variants={modalVariants}
+      >
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-xl font-bold">Connect Wallet</h3>
           <button
             onClick={onClose}
-            className="text-muted-foreground hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -130,24 +163,41 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {walletOptions.map((option) => (
-              <button
+            {walletOptions.map((option, index) => (
+              <motion.button
                 key={option.id}
-                className="flex flex-col items-center p-4 border rounded-lg hover:bg-muted transition-colors"
+                className="flex flex-col items-center p-4 border rounded-lg hover:bg-muted transition-all hover:shadow-md"
                 onClick={() => handleConnect(option.id)}
                 disabled={isConnecting}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ 
+                  opacity: 1, 
+                  y: 0,
+                  transition: { 
+                    delay: index * 0.05,
+                    duration: 0.3
+                  }
+                }}
+                whileHover={{ 
+                  scale: 1.03,
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ scale: 0.98 }}
               >
-                <div className="w-12 h-12 mb-2 flex items-center justify-center">
-                  {/* Placeholder for wallet icons */}
-                  <div className="w-10 h-10 rounded-full bg-muted-foreground/10 flex items-center justify-center text-lg font-bold">
-                    {option.name.charAt(0)}
-                  </div>
+                <div className="w-12 h-12 mb-3 flex items-center justify-center">
+                  <Image
+                    src={option.icon}
+                    alt={option.name}
+                    width={48}
+                    height={48}
+                    className="rounded-full"
+                  />
                 </div>
                 <span className="font-medium">{option.name}</span>
                 <span className="text-xs text-muted-foreground mt-1 text-center">
                   {option.description}
                 </span>
-              </button>
+              </motion.button>
             ))}
           </div>
         )}
