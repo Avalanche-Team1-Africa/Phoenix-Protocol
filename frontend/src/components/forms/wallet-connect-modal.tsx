@@ -1,11 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useWallet, WalletType } from "@/context/wallet-context";
 import { Button } from "@/components/ui/button";
 import { formatAddress } from "@/lib/utils/blockchain";
-import { motion } from "framer-motion";
 
 interface WalletOption {
   id: WalletType;
@@ -68,39 +67,22 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
     }
   };
 
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsVisible(true);
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
-  // Animation variants
-  const overlayVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.3 } }
-  };
-
-  const modalVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { 
-        duration: 0.4,
-        type: "spring",
-        stiffness: 300,
-        damping: 25
-      } 
-    }
-  };
-
   return (
-    <motion.div 
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
-      variants={overlayVariants}
+    <div 
+      className={`fixed inset-0 bg-black/50 flex items-center justify-center z-50 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
     >
-      <motion.div 
-        className="bg-background rounded-lg shadow-lg max-w-md w-full p-6 m-4"
-        variants={modalVariants}
+      <div 
+        className={`bg-background rounded-lg shadow-lg max-w-md w-full p-6 m-4 transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
       >
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-xl font-bold">Connect Wallet</h3>
@@ -164,25 +146,12 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {walletOptions.map((option, index) => (
-              <motion.button
+              <button
                 key={option.id}
-                className="flex flex-col items-center p-4 border rounded-lg hover:bg-muted transition-all hover:shadow-md"
+                className={`flex flex-col items-center p-4 border rounded-lg hover:bg-muted transition-all hover:shadow-md hover:scale-[1.03] active:scale-[0.98] animate-fadeIn`}
+                style={{ animationDelay: `${index * 50}ms` }}
                 onClick={() => handleConnect(option.id)}
                 disabled={isConnecting}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ 
-                  opacity: 1, 
-                  y: 0,
-                  transition: { 
-                    delay: index * 0.05,
-                    duration: 0.3
-                  }
-                }}
-                whileHover={{ 
-                  scale: 1.03,
-                  transition: { duration: 0.2 }
-                }}
-                whileTap={{ scale: 0.98 }}
               >
                 <div className="w-12 h-12 mb-3 flex items-center justify-center">
                   <Image
@@ -197,7 +166,7 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
                 <span className="text-xs text-muted-foreground mt-1 text-center">
                   {option.description}
                 </span>
-              </motion.button>
+              </button>
             ))}
           </div>
         )}

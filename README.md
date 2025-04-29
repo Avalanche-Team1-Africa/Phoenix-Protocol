@@ -106,40 +106,6 @@ Phoenix Protocol is a smart contract recovery and UX protection middleware built
 
 ---
 
-## 6. UI/UX Visualization
-
-### 6.1 Screens and Elements
-
-#### Home Page
-- Overview of protocol
-- Recent disputes and rollback cases
-- Call-to-action for developers and users
-
-#### dApp Transaction Screen
-- Input: Transaction Type (swap, stake, transfer)
-- Modal: Intent summary (e.g., "Swap 100 USDC to AVAX with 2% slippage")
-- Buttons: [Confirm Intent] [Reject Intent]
-
-#### Post-Transaction Screen
-- Intent ID: #823989
-- Status: MATCHED or DISPUTED
-- Actions:
-   - [Undo Transaction]
-   - [Submit Dispute]
-   - [Call Recovery Guardian]
-
-#### Dispute Dashboard
-- Open Cases
-- Evidence Viewer (on-chain/off-chain)
-- Voting Panel for DAO members
-
-#### Recovery Screen
-- Guardian Login
-- Threshold Signatures (2-of-3 required)
-- Wallet reassignment confirmation
-
----
-
 ## 7. Security Design
 
 - **Intent Signatures**: ECDSA with timestamped payload
