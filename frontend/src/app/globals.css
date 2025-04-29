@@ -3,6 +3,30 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  --card-background: #ffffff;
+  --card-foreground: #171717;
+  
+  --primary: #ff7e00;
+  --primary-foreground: #ffffff;
+  
+  --secondary: #f3f4f6;
+  --secondary-foreground: #1f2937;
+  
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  
+  --accent: #f9fafb;
+  --accent-foreground: #111827;
+  
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #ff7e00;
+  
+  --radius: 0.5rem;
 }
 
 @theme inline {
@@ -16,11 +40,92 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    
+    --card-background: #171717;
+    --card-foreground: #ededed;
+    
+    --primary: #ff7e00;
+    --primary-foreground: #ffffff;
+    
+    --secondary: #1f2937;
+    --secondary-foreground: #f9fafb;
+    
+    --muted: #1f2937;
+    --muted-foreground: #9ca3af;
+    
+    --accent: #1f2937;
+    --accent-foreground: #f9fafb;
+    
+    --destructive: #7f1d1d;
+    --destructive-foreground: #ffffff;
+    
+    --border: #1f2937;
+    --input: #1f2937;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Custom gradient backgrounds */
+.bg-phoenix-gradient {
+  background: linear-gradient(135deg, #ff7e00 0%, #ff0000 100%);
+}
+
+.text-phoenix-gradient {
+  background: linear-gradient(135deg, #ff7e00 0%, #ff0000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  opacity: 0.3;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.5;
+}
+
+/* Card hover effects */
+.card-hover-effect {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }

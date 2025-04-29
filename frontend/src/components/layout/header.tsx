@@ -1,8 +1,16 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { WalletConnectModal } from "@/components/forms/wallet-connect-modal";
+import { useWallet } from "@/context/wallet-context";
+import { formatAddress } from "@/lib/utils/blockchain";
 
 export function Header() {
+  const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
+  const { wallet } = useWallet();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
@@ -40,21 +48,44 @@ export function Header() {
           </nav>
         </div>
         <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="hidden md:flex"
-          >
-            Connect Wallet
-          </Button>
+          {wallet.connected ? (
+            <Button
+              variant="outline"
+              size="sm"
+              className="hidden md:flex"
+              onClick={() => setIsWalletModalOpen(true)}
+            >
+              <span className="flex items-center">
+                <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                {formatAddress(wallet.address)}
+              </span>
+            </Button>
+          ) : (
+            <Button
+              variant="outline"
+              size="sm"
+              className="hidden md:flex"
+              onClick={() => setIsWalletModalOpen(true)}
+            >
+              Connect Wallet
+            </Button>
+          )}
           <Button
             variant="gradient"
             size="sm"
+            asChild
           >
-            Launch App
+            <Link href="/transactions">
+              Launch App
+            </Link>
           </Button>
         </div>
       </div>
+      
+      <WalletConnectModal 
+        isOpen={isWalletModalOpen} 
+        onClose={() => setIsWalletModalOpen(false)} 
+      />
     </header>
   );
 }
