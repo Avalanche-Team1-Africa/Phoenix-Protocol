@@ -105,3 +105,116 @@ export function verifyTransactionMatchesIntent(
     discrepancies: [],
   };
 }
+
+/**
+ * Get the chain name from a chain ID
+ * @param chainId The numeric chain ID
+ * @returns The human-readable chain name
+ */
+export function getChainName(chainId: number): string {
+  const chains: Record<number, string> = {
+    1: "Ethereum Mainnet",
+    5: "Goerli Testnet",
+    11155111: "Sepolia Testnet",
+    43114: "Avalanche C-Chain",
+    43113: "Avalanche Fuji Testnet",
+    2: "Cardano Mainnet", // Using 2 for Cardano to avoid collision with Ethereum
+    3: "Cardano Testnet",
+  };
+  
+  return chains[chainId] || `Chain ID: ${chainId}`;
+}
+
+/**
+ * Get the explorer URL for a transaction hash
+ * @param txHash The transaction hash
+ * @param chainId The chain ID
+ * @returns The explorer URL
+ */
+export function getExplorerUrl(txHash: string, chainId: number): string {
+  const explorers: Record<number, string> = {
+    1: "https://etherscan.io/tx/",
+    5: "https://goerli.etherscan.io/tx/",
+    11155111: "https://sepolia.etherscan.io/tx/",
+    43114: "https://snowtrace.io/tx/",
+    43113: "https://testnet.snowtrace.io/tx/",
+    2: "https://cardanoscan.io/transaction/", // Cardano
+    3: "https://testnet.cardanoscan.io/transaction/", // Cardano testnet
+  };
+  
+  const baseUrl = explorers[chainId] || "https://etherscan.io/tx/";
+  return `${baseUrl}${txHash}`;
+}
+
+/**
+ * Estimate gas for a transaction
+ * @param provider The ethers provider
+ * @param txParams The transaction parameters
+ * @returns The estimated gas limit and price
+ */
+export async function estimateGas(
+  provider: ethers.BrowserProvider,
+  txParams: {
+    to: string;
+    from: string;
+    value?: string;
+    data?: string;
+  }
+): Promise<{ gasLimit: bigint; gasPrice: bigint; totalCost: string }> {
+  try {
+    const gasLimit = await provider.estimateGas({
+      to: txParams.to,
+      from: txParams.from,
+      value: txParams.value ? ethers.parseEther(txParams.value) : undefined,
+      data: txParams.data,
+    });
+    
+    const gasPrice = await provider.getGasPrice();
+    const totalCost = gasLimit * gasPrice;
+    
+    return {
+      gasLimit,
+      gasPrice,
+      totalCost: ethers.formatEther(totalCost),
+    };
+  } catch (error) {
+    console.error("Error estimating gas:", error);
+    throw new Error("Failed to estimate gas for transaction");
+  }
+}
+
+/**
+ * Get token balance for an address
+ * @param provider The ethers provider
+ * @param tokenAddress The token contract address (or null for native token)
+ * @param walletAddress The wallet address to check
+ * @returns The token balance
+ */
+export async function getTokenBalance(
+  provider: ethers.BrowserProvider,
+  tokenAddress: string | null,
+  walletAddress: string
+): Promise<string> {
+  try {
+    if (!tokenAddress) {
+      // Native token (ETH, AVAX, etc.)
+      const balance = await provider.getBalance(walletAddress);
+      return ethers.formatEther(balance);
+    } else {
+      // ERC20 token
+      const erc20Abi = [
+        "function balanceOf(address owner) view returns (uint256)",
+        "function decimals() view returns (uint8)",
+      ];
+      
+      const tokenContract = new ethers.Contract(tokenAddress, erc20Abi, provider);
+      const balance = await tokenContract.balanceOf(walletAddress);
+      const decimals = await tokenContract.decimals();
+      
+      return ethers.formatUnits(balance, decimals);
+    }
+  } catch (error) {
+    console.error("Error getting token balance:", error);
+    return "0";
+  }
+}
