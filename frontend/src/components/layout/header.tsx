@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { WalletConnectModal } from "@/components/forms/wallet-connect-modal";
 import { useWallet } from "@/context/wallet-context";
@@ -21,6 +22,13 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6 md:gap-10">
           <Link href="/" className="flex items-center space-x-2">
+            <Image 
+              src="/PhoenixProtocol.png" 
+              alt="Phoenix Protocol Logo" 
+              width={40} 
+              height={40} 
+              className="mr-2"
+            />
             <span className="text-2xl font-bold bg-phoenix-gradient bg-clip-text text-transparent">
               Phoenix Protocol
             </span>
@@ -55,6 +63,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <LanguageSelector />
+          <NotificationCenter />
           
           {wallet.connected ? (
             <Button
@@ -110,6 +119,18 @@ export function Header() {
       {isMobileMenuOpen && (
         <div className="md:hidden border-t">
           <div className="container py-4 space-y-4">
+            <div className="flex items-center mb-4">
+              <Image 
+                src="/PhoenixProtocol.png" 
+                alt="Phoenix Protocol Logo" 
+                width={32} 
+                height={32} 
+                className="mr-2"
+              />
+              <span className="text-xl font-bold bg-phoenix-gradient bg-clip-text text-transparent">
+                Phoenix Protocol
+              </span>
+            </div>
             <nav className="flex flex-col space-y-4">
               <Link
                 href="/"

@@ -1,0 +1,237 @@
+{
+  "common": {
+    "home": "Accueil",
+    "transactions": "Transactions",
+    "disputes": "Litiges",
+    "recovery": "Récupération",
+    "connectWallet": "Connecter le Portefeuille",
+    "launchApp": "Lancer l'Application",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "warning": "Avertissement",
+    "info": "Information",
+    "confirm": "Confirmer",
+    "cancel": "Annuler",
+    "submit": "Soumettre",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "view": "Voir",
+    "close": "Fermer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "continue": "Continuer",
+    "finish": "Terminer",
+    "justNow": "À l'instant",
+    "minute": "minute",
+    "minutes": "minutes",
+    "hour": "heure",
+    "hours": "heures",
+    "day": "jour",
+    "days": "jours",
+    "ago": "il y a"
+  },
+  "header": {
+    "title": "Protocole Phoenix",
+    "subtitle": "Récupération de Contrats Intelligents"
+  },
+  "home": {
+    "hero": {
+      "title": "Protocole Phoenix",
+      "subtitle": "Récupération de Contrats Intelligents",
+      "description": "Interagissez avec des contrats intelligents de manière lisible, avec confirmation d'intention et sécurité de retour en arrière, évitant les erreurs courantes de transaction.",
+      "cta": {
+        "primary": "Lancer l'Application",
+        "secondary": "Lire la Documentation"
+      }
+    },
+    "features": {
+      "title": "Fonctionnalités Principales",
+      "intentRegistry": {
+        "title": "Registre d'Intentions",
+        "description": "Stockez votre intention de transaction dans un registre immuable avant l'exécution, garantissant que vos actions sont vérifiées par rapport à vos intentions originales."
+      },
+      "transactionVerification": {
+        "title": "Vérification des Transactions",
+        "description": "Comparez automatiquement les transactions exécutées avec les paramètres prévus pour détecter les écarts dans les montants de jetons, les destinataires ou le glissement."
+      },
+      "recoveryController": {
+        "title": "Contrôleur de Récupération",
+        "description": "Gérez les annulations de transactions, la récupération de portefeuille et la restauration d'actifs grâce à notre processus de récupération sécurisé et vérifié."
+      }
+    },
+    "cases": {
+      "title": "Litiges et Annulations Récents",
+      "viewAll": "Voir Tous les Cas"
+    },
+    "cta": {
+      "title": "Prêt à Sécuriser vos Transactions Blockchain?",
+      "description": "Rejoignez le Protocole Phoenix aujourd'hui et expérimentez des interactions DeFi et NFT sans souci avec des mécanismes de récupération intégrés.",
+      "primary": "Commencer",
+      "secondary": "Pour les Développeurs"
+    }
+  },
+  "transactions": {
+    "title": "Tableau de Bord des Transactions",
+    "createNew": "Créer une Nouvelle Transaction",
+    "selectType": "Sélectionnez le type de transaction et entrez les détails",
+    "intentSummary": "Résumé de l'Intention",
+    "reviewIntent": "Révisez votre intention de transaction avant de confirmer",
+    "noActiveIntent": "Créez une nouvelle intention pour la voir ici",
+    "confirmIntent": "Confirmer l'Intention",
+    "rejectIntent": "Rejeter l'Intention",
+    "recentTransactions": "Transactions Récentes",
+    "noTransactions": "Pas encore de transactions. Créez votre première intention pour commencer.",
+    "viewDetails": "Voir les Détails",
+    "types": {
+      "swap": "Échange de Jetons",
+      "transfer": "Transfert de Jetons",
+      "stake": "Staking de Jetons",
+      "mint": "Créer un NFT"
+    },
+    "fields": {
+      "fromToken": "Jeton Source",
+      "toToken": "Jeton Destination",
+      "amount": "Montant",
+      "slippage": "Tolérance de Glissement (%)",
+      "recipient": "Adresse du Destinataire",
+      "duration": "Durée (jours)",
+      "quantity": "Quantité",
+      "price": "Prix"
+    },
+    "status": {
+      "pending": "EN ATTENTE",
+      "confirmed": "CONFIRMÉ",
+      "rejected": "REJETÉ",
+      "executed": "EXÉCUTÉ",
+      "disputed": "CONTESTÉ",
+      "matched": "CORRESPONDANT"
+    }
+  },
+  "disputes": {
+    "title": "Tableau de Bord des Litiges",
+    "submitNew": "Soumettre un Nouveau Litige",
+    "stats": {
+      "total": "Total des Litiges",
+      "resolved": "Résolus",
+      "underReview": "En Révision",
+      "rejected": "Rejetés"
+    },
+    "openCases": "Cas Ouverts",
+    "evidence": "Preuve",
+    "resolution": "Résolution",
+    "daoVoting": "Vote DAO",
+    "inFavor": "En Faveur",
+    "against": "Contre",
+    "addEvidence": "Ajouter une Preuve",
+    "voteInFavor": "Voter En Faveur",
+    "voteAgainst": "Voter Contre",
+    "viewFullDetails": "Voir les Détails Complets",
+    "status": {
+      "resolved": "Résolu",
+      "underReview": "En Révision",
+      "pendingEvidence": "Preuve en Attente",
+      "rejected": "Rejeté"
+    }
+  },
+  "recovery": {
+    "title": "Récupération de Portefeuille",
+    "guardianSetup": {
+      "title": "Configuration des Gardiens",
+      "description": "Assignez des contacts de confiance qui peuvent vous aider à récupérer votre portefeuille",
+      "yourWallet": "Votre Adresse de Portefeuille",
+      "guardianAddress": "Adresse du Gardien",
+      "requiredGuardians": "{{required}} sur {{total}} gardiens requis pour la récupération",
+      "currentGuardians": "Gardiens Actuels",
+      "addGuardian": "Ajouter un Gardien",
+      "removeGuardian": "Supprimer",
+      "updateConfig": "Mettre à Jour la Configuration des Gardiens"
+    },
+    "recoverWallet": {
+      "title": "Récupérer le Portefeuille",
+      "description": "Initiez le processus de récupération pour un portefeuille perdu",
+      "walletToRecover": "Adresse du Portefeuille à Récupérer",
+      "newWallet": "Nouvelle Adresse de Portefeuille",
+      "reason": "Raison de la Récupération",
+      "initiateRecovery": "Initier la Récupération",
+      "cancelRecovery": "Annuler la Récupération",
+      "completeRecovery": "Compléter la Récupération",
+      "status": "Statut de Récupération",
+      "guardianApprovals": "Approbations des Gardiens",
+      "approved": "Approuvé",
+      "pending": "En Attente",
+      "reasons": {
+        "lostKey": "Clé Privée Perdue",
+        "compromised": "Portefeuille Compromis",
+        "hardware": "Défaillance Matérielle",
+        "other": "Autre"
+      }
+    },
+    "guardianLogin": {
+      "title": "Connexion du Gardien",
+      "approveRequest": "Approuver la Demande de Récupération",
+      "description": "Vérifiez et approuvez une demande de récupération de portefeuille en tant que gardien",
+      "recoveryId": "ID de Demande de Récupération",
+      "recoveryDetails": "Détails de Récupération",
+      "walletToRecover": "Portefeuille à Récupérer",
+      "newWallet": "Nouveau Portefeuille",
+      "initiatedBy": "Initié Par",
+      "reason": "Raison",
+      "requested": "Demandé",
+      "guardianSignature": "Signature du Gardien",
+      "signatureHelp": "Cela nécessitera une signature de votre portefeuille pour vérifier votre identité en tant que gardien.",
+      "rejectRequest": "Rejeter la Demande",
+      "approveRecovery": "Approuver la Récupération"
+    }
+  },
+  "wallet": {
+    "connect": "Connecter le Portefeuille",
+    "disconnect": "Déconnecter le Portefeuille",
+    "connected": "Portefeuille Connecté",
+    "balance": "Solde",
+    "network": "Réseau",
+    "copy": "Copier l'Adresse",
+    "view": "Voir sur l'Explorateur",
+    "switch": "Changer de Réseau",
+    "options": {
+      "metamask": {
+        "name": "MetaMask",
+        "description": "Connectez-vous à votre Portefeuille MetaMask"
+      },
+      "core": {
+        "name": "Core Wallet",
+        "description": "Extension Core Wallet d'Avalanche"
+      },
+      "phantom": {
+        "name": "Phantom",
+        "description": "Connectez-vous à Phantom (Solana)"
+      },
+      "walletconnect": {
+        "name": "WalletConnect",
+        "description": "Connectez-vous avec WalletConnect"
+      },
+      "coinbase": {
+        "name": "Coinbase Wallet",
+        "description": "Connectez-vous à Coinbase Wallet"
+      },
+      "trust": {
+        "name": "Trust Wallet",
+        "description": "Connectez-vous à Trust Wallet"
+      }
+    }
+  },
+  "errors": {
+    "walletNotConnected": "Portefeuille non connecté",
+    "walletNotInstalled": "Portefeuille non installé",
+    "networkNotSupported": "Réseau non pris en charge",
+    "transactionFailed": "La transaction a échoué",
+    "insufficientFunds": "Fonds insuffisants",
+    "invalidAddress": "Adresse invalide",
+    "invalidAmount": "Montant invalide",
+    "invalidSignature": "Signature invalide",
+    "userRejected": "L'utilisateur a rejeté la demande",
+    "unknownError": "Une erreur inconnue s'est produite"
+  }
+}

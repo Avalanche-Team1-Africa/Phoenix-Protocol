@@ -1,0 +1,237 @@
+{
+  "common": {
+    "home": "首页",
+    "transactions": "交易",
+    "disputes": "争议",
+    "recovery": "恢复",
+    "connectWallet": "连接钱包",
+    "launchApp": "启动应用",
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "warning": "警告",
+    "info": "信息",
+    "confirm": "确认",
+    "cancel": "取消",
+    "submit": "提交",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "view": "查看",
+    "close": "关闭",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "continue": "继续",
+    "finish": "完成",
+    "justNow": "刚刚",
+    "minute": "分钟",
+    "minutes": "分钟",
+    "hour": "小时",
+    "hours": "小时",
+    "day": "天",
+    "days": "天",
+    "ago": "前"
+  },
+  "header": {
+    "title": "凤凰协议",
+    "subtitle": "智能合约恢复"
+  },
+  "home": {
+    "hero": {
+      "title": "凤凰协议",
+      "subtitle": "智能合约恢复",
+      "description": "以人类可读、意图确认和回滚安全的方式与智能合约交互，防止常见的交易错误。",
+      "cta": {
+        "primary": "启动应用",
+        "secondary": "阅读文档"
+      }
+    },
+    "features": {
+      "title": "核心功能",
+      "intentRegistry": {
+        "title": "意图注册",
+        "description": "在执行前将您的交易意图存储在不可变的注册表中，确保您的操作与原始意图进行验证。"
+      },
+      "transactionVerification": {
+        "title": "交易验证",
+        "description": "自动将执行的交易与您的预期参数进行比较，以检测代币数量、接收者或滑点的不匹配。"
+      },
+      "recoveryController": {
+        "title": "恢复控制器",
+        "description": "通过我们安全且经过验证的恢复流程管理交易回滚、钱包恢复和资产恢复。"
+      }
+    },
+    "cases": {
+      "title": "最近的争议和回滚",
+      "viewAll": "查看所有案例"
+    },
+    "cta": {
+      "title": "准备好保护您的区块链交易了吗？",
+      "description": "今天加入凤凰协议，体验具有内置恢复机制的无忧DeFi和NFT交互。",
+      "primary": "开始使用",
+      "secondary": "开发者专区"
+    }
+  },
+  "transactions": {
+    "title": "交易仪表板",
+    "createNew": "创建新交易",
+    "selectType": "选择交易类型并输入详细信息",
+    "intentSummary": "意图摘要",
+    "reviewIntent": "在确认前审核您的交易意图",
+    "noActiveIntent": "创建新意图以在此处查看",
+    "confirmIntent": "确认意图",
+    "rejectIntent": "拒绝意图",
+    "recentTransactions": "最近交易",
+    "noTransactions": "尚无交易。创建您的第一个意图以开始。",
+    "viewDetails": "查看详情",
+    "types": {
+      "swap": "代币交换",
+      "transfer": "代币转账",
+      "stake": "代币质押",
+      "mint": "铸造NFT"
+    },
+    "fields": {
+      "fromToken": "源代币",
+      "toToken": "目标代币",
+      "amount": "数量",
+      "slippage": "滑点容忍度(%)",
+      "recipient": "接收地址",
+      "duration": "持续时间(天)",
+      "quantity": "数量",
+      "price": "价格"
+    },
+    "status": {
+      "pending": "待处理",
+      "confirmed": "已确认",
+      "rejected": "已拒绝",
+      "executed": "已执行",
+      "disputed": "有争议",
+      "matched": "匹配"
+    }
+  },
+  "disputes": {
+    "title": "争议仪表板",
+    "submitNew": "提交新争议",
+    "stats": {
+      "total": "争议总数",
+      "resolved": "已解决",
+      "underReview": "审核中",
+      "rejected": "已拒绝"
+    },
+    "openCases": "开放案例",
+    "evidence": "证据",
+    "resolution": "解决方案",
+    "daoVoting": "DAO投票",
+    "inFavor": "支持",
+    "against": "反对",
+    "addEvidence": "添加证据",
+    "voteInFavor": "投票支持",
+    "voteAgainst": "投票反对",
+    "viewFullDetails": "查看完整详情",
+    "status": {
+      "resolved": "已解决",
+      "underReview": "审核中",
+      "pendingEvidence": "等待证据",
+      "rejected": "已拒绝"
+    }
+  },
+  "recovery": {
+    "title": "钱包恢复",
+    "guardianSetup": {
+      "title": "监护人设置",
+      "description": "指定可以帮助您恢复钱包的受信任联系人",
+      "yourWallet": "您的钱包地址",
+      "guardianAddress": "监护人地址",
+      "requiredGuardians": "恢复需要{{total}}个监护人中的{{required}}个",
+      "currentGuardians": "当前监护人",
+      "addGuardian": "添加监护人",
+      "removeGuardian": "移除",
+      "updateConfig": "更新监护人配置"
+    },
+    "recoverWallet": {
+      "title": "恢复钱包",
+      "description": "为丢失的钱包启动恢复流程",
+      "walletToRecover": "要恢复的钱包地址",
+      "newWallet": "新钱包地址",
+      "reason": "恢复原因",
+      "initiateRecovery": "启动恢复",
+      "cancelRecovery": "取消恢复",
+      "completeRecovery": "完成恢复",
+      "status": "恢复状态",
+      "guardianApprovals": "监护人批准",
+      "approved": "已批准",
+      "pending": "待处理",
+      "reasons": {
+        "lostKey": "私钥丢失",
+        "compromised": "钱包被盗",
+        "hardware": "硬件故障",
+        "other": "其他"
+      }
+    },
+    "guardianLogin": {
+      "title": "监护人登录",
+      "approveRequest": "批准恢复请求",
+      "description": "作为监护人验证并批准钱包恢复请求",
+      "recoveryId": "恢复请求ID",
+      "recoveryDetails": "恢复详情",
+      "walletToRecover": "要恢复的钱包",
+      "newWallet": "新钱包",
+      "initiatedBy": "发起人",
+      "reason": "原因",
+      "requested": "请求时间",
+      "guardianSignature": "监护人签名",
+      "signatureHelp": "这将需要您的钱包签名以验证您作为监护人的身份。",
+      "rejectRequest": "拒绝请求",
+      "approveRecovery": "批准恢复"
+    }
+  },
+  "wallet": {
+    "connect": "连接钱包",
+    "disconnect": "断开钱包",
+    "connected": "已连接钱包",
+    "balance": "余额",
+    "network": "网络",
+    "copy": "复制地址",
+    "view": "在浏览器中查看",
+    "switch": "切换网络",
+    "options": {
+      "metamask": {
+        "name": "MetaMask",
+        "description": "连接到您的MetaMask钱包"
+      },
+      "core": {
+        "name": "Core钱包",
+        "description": "Avalanche的Core钱包扩展"
+      },
+      "phantom": {
+        "name": "Phantom",
+        "description": "连接到Phantom(Solana)"
+      },
+      "walletconnect": {
+        "name": "WalletConnect",
+        "description": "使用WalletConnect连接"
+      },
+      "coinbase": {
+        "name": "Coinbase钱包",
+        "description": "连接到Coinbase钱包"
+      },
+      "trust": {
+        "name": "Trust钱包",
+        "description": "连接到Trust钱包"
+      }
+    }
+  },
+  "errors": {
+    "walletNotConnected": "钱包未连接",
+    "walletNotInstalled": "钱包未安装",
+    "networkNotSupported": "网络不支持",
+    "transactionFailed": "交易失败",
+    "insufficientFunds": "资金不足",
+    "invalidAddress": "无效地址",
+    "invalidAmount": "无效金额",
+    "invalidSignature": "无效签名",
+    "userRejected": "用户拒绝请求",
+    "unknownError": "发生未知错误"
+  }
+}
