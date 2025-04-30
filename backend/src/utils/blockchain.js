@@ -1,6 +1,10 @@
 const ethers = require('ethers');
 const config = require('../config');
 const { logger } = require('./logger');
+const PhoenixProtocolABI = require('../contracts/PhoenixProtocol.json');
+const IntentRegistryABI = require('../contracts/IntentRegistry.json');
+const RecoveryModuleABI = require('../contracts/RecoveryModule.json');
+const TokenVaultABI = require('../contracts/TokenVault.json');
 
 // Initialize provider
 const getProvider = (chainId) => {
@@ -29,6 +33,55 @@ const getProvider = (chainId) => {
   }
   
   return new ethers.JsonRpcProvider(providerUrl);
+};
+
+// Get contract instances
+const getContracts = (provider) => {
+  const phoenixProtocolAddress = config.PHOENIX_PROTOCOL_ADDRESS;
+  const intentRegistryAddress = config.INTENT_REGISTRY_ADDRESS;
+  const recoveryModuleAddress = config.RECOVERY_MODULE_ADDRESS;
+  const tokenVaultAddress = config.TOKEN_VAULT_ADDRESS;
+
+  if (!phoenixProtocolAddress || !intentRegistryAddress || !recoveryModuleAddress || !tokenVaultAddress) {
+    logger.error('Contract addresses not configured');
+    return null;
+  }
+
+  try {
+    const phoenixProtocol = new ethers.Contract(
+      phoenixProtocolAddress,
+      PhoenixProtocolABI.abi,
+      provider
+    );
+    
+    const intentRegistry = new ethers.Contract(
+      intentRegistryAddress,
+      IntentRegistryABI.abi,
+      provider
+    );
+    
+    const recoveryModule = new ethers.Contract(
+      recoveryModuleAddress,
+      RecoveryModuleABI.abi,
+      provider
+    );
+    
+    const tokenVault = new ethers.Contract(
+      tokenVaultAddress,
+      TokenVaultABI.abi,
+      provider
+    );
+
+    return {
+      phoenixProtocol,
+      intentRegistry,
+      recoveryModule,
+      tokenVault
+    };
+  } catch (error) {
+    logger.error(`Error initializing contracts: ${error.message}`);
+    return null;
+  }
 };
 
 /**
@@ -176,8 +229,72 @@ const getChainName = (chainId) => {
   }
 };
 
+/**
+ * Get intent details from blockchain
+ */
+const getIntentDetails = async (intentId, chainId) => {
+  try {
+    const provider = getProvider(chainId);
+    const contracts = getContracts(provider);
+    
+    if (!contracts) {
+      throw new Error('Contracts not initialized');
+    }
+    
+    const intentDetails = await contracts.intentRegistry.getIntentDetails(intentId);
+    
+    return {
+      user: intentDetails.user,
+      tokenAddress: intentDetails.tokenAddress,
+      amount: intentDetails.amount.toString(),
+      recipient: intentDetails.recipient,
+      expiresAt: Number(intentDetails.expiresAt),
+      intentType: Number(intentDetails.intentType),
+      isExecuted: intentDetails.isExecuted,
+      isCancelled: intentDetails.isCancelled,
+      createdAt: Number(intentDetails.createdAt)
+    };
+  } catch (error) {
+    logger.error(`Error getting intent details for ${intentId}: ${error.message}`);
+    throw error;
+  }
+};
+
+/**
+ * Get recovery request details from blockchain
+ */
+const getRecoveryDetails = async (recoveryId, chainId) => {
+  try {
+    const provider = getProvider(chainId);
+    const contracts = getContracts(provider);
+    
+    if (!contracts) {
+      throw new Error('Contracts not initialized');
+    }
+    
+    const recoveryDetails = await contracts.recoveryModule.getRecoveryRequest(recoveryId);
+    
+    return {
+      requester: recoveryDetails.requester,
+      transactionId: recoveryDetails.transactionId,
+      status: Number(recoveryDetails.status),
+      reason: recoveryDetails.reason,
+      tokenAddress: recoveryDetails.tokenAddress,
+      amount: recoveryDetails.amount.toString(),
+      recipient: recoveryDetails.recipient,
+      requestedAt: Number(recoveryDetails.requestedAt),
+      updatedAt: Number(recoveryDetails.updatedAt),
+      executedAt: Number(recoveryDetails.executedAt)
+    };
+  } catch (error) {
+    logger.error(`Error getting recovery details for ${recoveryId}: ${error.message}`);
+    throw error;
+  }
+};
+
 module.exports = {
   getProvider,
+  getContracts,
   getTransaction,
   getTransactionReceipt,
   verifySignature,
@@ -185,5 +302,7 @@ module.exports = {
   getTokenBalance,
   getNativeBalance,
   getChainNativeSymbol,
-  getChainName
+  getChainName,
+  getIntentDetails,
+  getRecoveryDetails
 };
