@@ -50,6 +50,12 @@ const walletOptions: WalletOption[] = [
     icon: "/wallets/trust.svg",
     description: "Connect to Trust Wallet",
   },
+  {
+    id: "cardano",
+    name: "Cardano",
+    icon: "/wallets/cardano.svg",
+    description: "Connect to Nami, Eternl, or Flint",
+  },
 ];
 
 interface WalletConnectModalProps {

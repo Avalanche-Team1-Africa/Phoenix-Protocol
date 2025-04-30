@@ -209,6 +209,11 @@ export async function getTransaction(
   chainId: number
 ): Promise<TransactionResponse | null> {
   try {
+    // Handle Cardano transactions separately
+    if (chainId === CHAIN_IDS.CARDANO_MAINNET || chainId === CHAIN_IDS.CARDANO_TESTNET) {
+      return getCardanoTransaction(txHash, chainId);
+    }
+    
     const provider = getProvider(chainId);
     if (!provider) {
       throw new Error(`Provider not available for chain ID ${chainId}`);
@@ -236,5 +241,68 @@ export async function getTransaction(
   } catch (error) {
     console.error("Error getting transaction:", error);
     return null;
+  }
+}
+
+// Get Cardano transaction by hash
+export async function getCardanoTransaction(
+  txHash: string,
+  chainId: number
+): Promise<TransactionResponse | null> {
+  try {
+    // In a real implementation, we would use the Blockfrost API or another Cardano API
+    // to fetch transaction details. For now, we'll return a mock response.
+    
+    // Mock transaction data
+    return {
+      hash: txHash,
+      chainId,
+      from: "addr1qxy8p07tr4877d0lrmc3vr7hskvmcrhcqaagfxrjnj6qmjwpurcnlr9j5a5n6fj6lrcmsmxjlj0mhwdus5h3v3qk0cdqk7yjxz",
+      to: "addr1qy8ac7qqy0vtulylx0f03f5x7c9qna7rgqdl6vt8hl45afnfqq5x7c9qna7rgqdl6vt8hl45afnfqq5x7c9qna7rgqdl6vt8hl45a",
+      value: "100",
+      data: "",
+      gasLimit: "0",
+      gasPrice: "0",
+      status: "confirmed",
+      blockNumber: 12345678,
+      blockHash: "0x" + "1".repeat(64),
+      timestamp: Date.now(),
+    };
+  } catch (error) {
+    console.error("Error getting Cardano transaction:", error);
+    return null;
+  }
+}
+
+// Send a Cardano transaction
+export async function sendCardanoTransaction(
+  from: string,
+  to: string,
+  amount: string,
+  cardanoApi: any
+): Promise<TransactionResponse> {
+  try {
+    // In a real implementation, we would use the Cardano wallet API to send a transaction
+    // For now, we'll simulate a transaction
+    
+    // Generate a random transaction hash
+    const txHash = "0x" + Math.random().toString(16).substring(2, 10) + Date.now().toString(16);
+    
+    // Mock transaction response
+    return {
+      hash: txHash,
+      chainId: CHAIN_IDS.CARDANO_TESTNET,
+      from,
+      to,
+      value: amount,
+      data: "",
+      gasLimit: "0",
+      gasPrice: "0",
+      status: "pending",
+      timestamp: Date.now(),
+    };
+  } catch (error) {
+    console.error("Cardano transaction failed:", error);
+    throw error;
   }
 }

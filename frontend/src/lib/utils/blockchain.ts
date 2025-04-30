@@ -147,6 +147,16 @@ export function getExplorerUrl(txHash: string, chainId: number): string {
 }
 
 /**
+ * Alias for getExplorerUrl for consistency with component usage
+ * @param chainId The chain ID
+ * @param txHash The transaction hash
+ * @returns The explorer URL
+ */
+export function getTxExplorerUrl(chainId: number, txHash: string): string {
+  return getExplorerUrl(txHash, chainId);
+}
+
+/**
  * Estimate gas for a transaction
  * @param provider The ethers provider
  * @param txParams The transaction parameters

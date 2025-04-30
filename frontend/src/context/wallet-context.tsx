@@ -285,5 +285,11 @@ declare global {
       solana?: any;
     };
     coinbaseWalletExtension?: any;
+    cardano?: {
+      nami?: any;
+      eternl?: any;
+      flint?: any;
+      [key: string]: any;
+    };
   }
 }
