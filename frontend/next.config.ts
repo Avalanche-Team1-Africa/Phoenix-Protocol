@@ -11,7 +11,8 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
-    optimizeCss: true,
+    // Temporarily disable optimizeCss to avoid permission issues
+    // optimizeCss: true,
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
   webpack: (config) => {
