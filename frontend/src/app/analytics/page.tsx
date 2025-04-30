@@ -27,8 +27,8 @@ import {
 import { Download, Calendar, Filter } from "lucide-react";
 
 // Mock data for charts
-const generateMockTransactionData = (days = 30) => {
-  const data = [];
+const generateMockTransactionData = (days = 30): TransactionDataItem[] => {
+  const data: TransactionDataItem[] = [];
   const types = ['swap', 'transfer', 'stake', 'mint'];
   const tokens = ['USDC', 'AVAX', 'ETH', 'BTC', 'ADA'];
   const now = new Date();
@@ -57,7 +57,7 @@ const generateMockTransactionData = (days = 30) => {
   return data.reverse();
 };
 
-const generateTokenDistribution = () => {
+const generateTokenDistribution = (): DistributionItem[] => {
   return [
     { name: 'USDC', value: 45 },
     { name: 'AVAX', value: 25 },
@@ -67,7 +67,7 @@ const generateTokenDistribution = () => {
   ];
 };
 
-const generateChainDistribution = () => {
+const generateChainDistribution = (): DistributionItem[] => {
   return [
     { name: 'Avalanche', value: 60 },
     { name: 'Ethereum', value: 25 },
@@ -77,14 +77,31 @@ const generateChainDistribution = () => {
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
+// Define types for our data structures
+type TransactionDataItem = {
+  date: string;
+  swap: number;
+  transfer: number;
+  stake: number;
+  mint: number;
+  total: number;
+  volume: number;
+  gasSpent: number;
+};
+
+type DistributionItem = {
+  name: string;
+  value: number;
+};
+
 export default function AnalyticsPage() {
   const { wallet } = useWallet();
   const { getAllIntents } = useTransactionIntent();
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
   const [timeRange, setTimeRange] = useState('30d');
-  const [transactionData, setTransactionData] = useState([]);
-  const [tokenDistribution, setTokenDistribution] = useState([]);
-  const [chainDistribution, setChainDistribution] = useState([]);
+  const [transactionData, setTransactionData] = useState<TransactionDataItem[]>([]);
+  const [tokenDistribution, setTokenDistribution] = useState<DistributionItem[]>([]);
+  const [chainDistribution, setChainDistribution] = useState<DistributionItem[]>([]);
   const [activeTab, setActiveTab] = useState('overview');
   
   // Load data when component mounts
@@ -95,9 +112,16 @@ export default function AnalyticsPage() {
     setChainDistribution(generateChainDistribution());
   }, [timeRange]);
   
+  // Define type for stats
+  type Stats = {
+    total: number;
+    volume: number;
+    gas: string;
+  };
+
   // Calculate summary statistics
-  const calculateStats = () => {
-    if (!transactionData.length) return { total: 0, volume: 0, gas: 0 };
+  const calculateStats = (): Stats => {
+    if (!transactionData.length) return { total: 0, volume: 0, gas: '0' };
     
     const total = transactionData.reduce((sum, day) => sum + day.total, 0);
     const volume = transactionData.reduce((sum, day) => sum + day.volume, 0);
@@ -109,13 +133,13 @@ export default function AnalyticsPage() {
   const stats = calculateStats();
   
   // Format date for display
-  const formatDate = (dateStr) => {
+  const formatDate = (dateStr: string): string => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   };
   
   // Export data as CSV
-  const exportData = () => {
+  const exportData = (): void => {
     const headers = 'Date,Swaps,Transfers,Stakes,Mints,Total,Volume,Gas\n';
     const csvContent = headers + transactionData.map(day => 
       `${day.date},${day.swap},${day.transfer},${day.stake},${day.mint},${day.total},${day.volume},${day.gasSpent}`
