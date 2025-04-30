@@ -142,7 +142,7 @@ export default function TransactionsPage() {
       if (result.success) {
         setSuccessMessage("Transaction executed and verified successfully!");
       } else {
-        setErrorMessage(`Transaction verification failed: ${result.discrepancies.join(", ")}`);
+        setErrorMessage(`Transaction verification failed: ${result.discrepancies ? result.discrepancies.join(", ") : "Unknown error"}`);
       }
       
       // Refresh intents list

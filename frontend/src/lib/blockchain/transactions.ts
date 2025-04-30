@@ -61,7 +61,7 @@ export async function sendTransaction(
       to: request.to,
       value: request.value || "0",
       data: request.data || "0x",
-      gasLimit: receipt?.gasLimit.toString() || "0",
+      gasLimit: tx.gasLimit.toString() || "0",
       gasPrice: receipt?.gasPrice?.toString() || "0",
       status: receipt?.status === 1 ? "confirmed" : "failed",
       blockNumber: receipt?.blockNumber,
@@ -92,11 +92,11 @@ export async function estimateGas(
     });
     
     const gasPrice = await provider.getFeeData();
-    const totalCost = gasLimit * (gasPrice.gasPrice || 0n);
+    const totalCost = gasLimit * (gasPrice.gasPrice || BigInt(0));
     
     return {
       gasLimit: gasLimit.toString(),
-      gasPrice: (gasPrice.gasPrice || 0n).toString(),
+      gasPrice: (gasPrice.gasPrice || BigInt(0)).toString(),
       totalCost: ethers.formatEther(totalCost),
     };
   } catch (error) {

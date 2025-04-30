@@ -169,7 +169,8 @@ export async function estimateGas(
       data: txParams.data,
     });
     
-    const gasPrice = await provider.getGasPrice();
+    const feeData = await provider.getFeeData();
+    const gasPrice = feeData.gasPrice ?? BigInt(0);
     const totalCost = gasLimit * gasPrice;
     
     return {
