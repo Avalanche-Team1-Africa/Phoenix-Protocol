@@ -1,6 +1,8 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { useWallet } from '@/context/wallet-context';
-import { BridgeService } from '@/services/bridge-service';
+import { MilkomedaBridgeService } from '@/services/milkomeda-bridge';
 import { CHAIN_IDS } from '@/lib/blockchain/providers';
 import { getChainName } from '@/lib/utils/blockchain';
 import { Button } from '@/components/ui/button';
@@ -21,7 +23,7 @@ const BridgeForm: React.FC = () => {
   const [txHash, setTxHash] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   
-  const bridgeService = BridgeService.getInstance();
+  const bridgeService = MilkomedaBridgeService.getInstance();
   
   // Set default source chain based on connected wallet
   useEffect(() => {

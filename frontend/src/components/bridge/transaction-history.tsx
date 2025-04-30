@@ -1,26 +1,16 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
-import { BridgeService } from '@/services/bridge-service';
+import { MilkomedaBridgeService, MilkomedaBridgeTransaction } from '@/services/milkomeda-bridge';
 import { getChainName, getTxExplorerUrl } from '@/lib/utils/blockchain';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink } from 'lucide-react';
 
-interface BridgeTransaction {
-  sourceChainId: number;
-  targetChainId: number;
-  sourceAddress: string;
-  targetAddress: string;
-  amount: string;
-  token: string;
-  status: 'pending' | 'completed' | 'failed';
-  txHash: string;
-  timestamp: number;
-}
-
 const TransactionHistory: React.FC = () => {
-  const [transactions, setTransactions] = useState<BridgeTransaction[]>([]);
-  const bridgeService = BridgeService.getInstance();
+  const [transactions, setTransactions] = useState<MilkomedaBridgeTransaction[]>([]);
+  const bridgeService = MilkomedaBridgeService.getInstance();
   
   useEffect(() => {
     // Get transactions from the bridge service
