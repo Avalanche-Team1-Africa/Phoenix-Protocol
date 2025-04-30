@@ -1,3 +1,12 @@
+// Extend the ServiceWorkerRegistration interface to include the sync property
+interface SyncManager {
+  register(tag: string): Promise<void>;
+}
+
+interface ExtendedServiceWorkerRegistration extends ServiceWorkerRegistration {
+  sync?: SyncManager;
+}
+
 export function registerServiceWorker() {
   if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -37,9 +46,14 @@ export function checkOfflineCapability(): boolean {
 export async function requestBackgroundSync() {
   if (typeof window !== 'undefined' && 'serviceWorker' in navigator && 'SyncManager' in window) {
     try {
-      const registration = await navigator.serviceWorker.ready;
-      await registration.sync.register('sync-transactions');
-      return true;
+      const registration = await navigator.serviceWorker.ready as ExtendedServiceWorkerRegistration;
+      if (registration.sync) {
+        await registration.sync.register('sync-transactions');
+        return true;
+      } else {
+        console.warn('Sync API is not available in this browser');
+        return false;
+      }
     } catch (error) {
       console.error('Background sync could not be registered:', error);
       return false;
