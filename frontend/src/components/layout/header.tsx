@@ -66,6 +66,12 @@ export function Header() {
             >
               Recovery
             </Link>
+            <Link
+              href="/bridge"
+              className="text-sm font-medium transition-colors hover:text-primary"
+            >
+              Bridge
+            </Link>
           </nav>
         </div>
         <div className="flex items-center gap-2">
@@ -205,6 +211,13 @@ export function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Recovery
+              </Link>
+              <Link
+                href="/bridge"
+                className="text-sm font-medium transition-colors hover:text-primary"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Bridge
               </Link>
             </nav>
             <div className="flex flex-col space-y-2">
