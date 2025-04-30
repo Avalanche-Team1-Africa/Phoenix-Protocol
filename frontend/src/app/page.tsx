@@ -32,7 +32,7 @@ export default function Home() {
       threshold: 0.1
     };
     
-    const observerCallback = (entries) => {
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           if (entry.target === heroRef.current) setIsVisible(prev => ({ ...prev, hero: true }));
