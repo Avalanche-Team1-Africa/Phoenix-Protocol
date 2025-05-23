@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import { CHAIN_IDS, isChainSupported } from "./providers";
 
 // Wallet connection types
-export type WalletType = "metamask" | "walletconnect" | "coinbase" | "ledger" | "trezor" | "cardano";
+export type WalletType = "metamask" | "walletconnect" | "coinbase" | "ledger" | "trezor";
 
 export type WalletInfo = {
   address: string;
@@ -19,11 +19,6 @@ export async function connectWallet(
   preferredChainId: number = CHAIN_IDS.ETHEREUM_MAINNET
 ): Promise<WalletInfo> {
   try {
-    // Handle Cardano wallets separately
-    if (walletType === "cardano") {
-      return connectCardanoWallet();
-    }
-    
     // For EVM-compatible chains
     if (typeof window === "undefined" || !window.ethereum) {
       throw new Error("No Ethereum provider found. Please install a wallet.");
@@ -94,62 +89,6 @@ export async function connectWallet(
   } catch (error) {
     console.error("Wallet connection failed:", error);
     throw error;
-  }
-}
-
-// Connect to Cardano wallet
-async function connectCardanoWallet(): Promise<WalletInfo> {
-  // Check if Cardano wallets are available
-  if (typeof window === "undefined") {
-    throw new Error("Cannot connect to Cardano wallet in server environment");
-  }
-  
-  // Check for available wallets
-  if (window.cardano?.nami) {
-    return connectSpecificCardanoWallet("nami");
-  } else if (window.cardano?.eternl) {
-    return connectSpecificCardanoWallet("eternl");
-  } else if (window.cardano?.flint) {
-    return connectSpecificCardanoWallet("flint");
-  }
-  
-  throw new Error("No Cardano wallet found. Please install Nami, Eternl, or Flint wallet.");
-}
-
-// Connect to a specific Cardano wallet
-async function connectSpecificCardanoWallet(walletType: "nami" | "eternl" | "flint"): Promise<WalletInfo> {
-  try {
-    // Get wallet API
-    const walletApi = await window.cardano?.[walletType]?.enable();
-    
-    if (!walletApi) {
-      throw new Error(`Failed to connect to ${walletType} wallet`);
-    }
-    
-    // Get wallet address
-    const usedAddresses = await walletApi.getUsedAddresses();
-    const address = usedAddresses.length > 0 
-      ? usedAddresses[0] 
-      : await walletApi.getChangeAddress();
-    
-    // Get network ID (0 = testnet, 1 = mainnet)
-    const networkId = await walletApi.getNetworkId();
-    
-    // Map network ID to chain ID
-    const chainId = networkId === 1 
-      ? CHAIN_IDS.CARDANO_MAINNET 
-      : CHAIN_IDS.CARDANO_TESTNET;
-    
-    return {
-      address: Buffer.from(address, 'hex').toString('hex'),
-      chainId,
-      connected: true,
-      type: "cardano",
-      provider: walletApi,
-    };
-  } catch (error) {
-    console.error(`Error connecting to ${walletType} wallet:`, error);
-    throw new Error(`Failed to connect to ${walletType} wallet`);
   }
 }
 
