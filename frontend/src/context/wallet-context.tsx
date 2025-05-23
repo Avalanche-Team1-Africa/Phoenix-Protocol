@@ -6,8 +6,8 @@ import { connectWallet, disconnectWallet, WalletType as BlockchainWalletType } f
 import { CHAIN_IDS, getChainMetadata, RPC_URLS } from "@/lib/blockchain/providers";
 import { getTokenBalance } from "@/lib/blockchain/transactions";
 
-// Define wallet types
-export type WalletType = BlockchainWalletType | "core" | "phantom" | "brave" | "trust";
+// Define wallet types - focusing only on EVM compatible wallets
+export type WalletType = "metamask" | "walletconnect" | "coinbase" | "brave" | "trust";
 
 interface WalletInfo {
   address: string;
@@ -16,6 +16,7 @@ interface WalletInfo {
   provider: any;
   connected: boolean;
   walletType: WalletType | null;
+  signer: ethers.Signer | null;
 }
 
 interface WalletContextType {
@@ -25,6 +26,7 @@ interface WalletContextType {
   isConnecting: boolean;
   error: string | null;
   switchChain: (chainId: number) => Promise<boolean>;
+  getSigner: () => ethers.Signer | null;
 }
 
 const initialWalletState: WalletInfo = {
@@ -34,6 +36,7 @@ const initialWalletState: WalletInfo = {
   provider: null,
   connected: false,
   walletType: null,
+  signer: null
 };
 
 const WalletContext = createContext<WalletContextType>({
@@ -43,6 +46,7 @@ const WalletContext = createContext<WalletContextType>({
   isConnecting: false,
   error: null,
   switchChain: async () => false,
+  getSigner: () => null
 });
 
 export const useWallet = () => useContext(WalletContext);
@@ -113,12 +117,16 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
     try {
       let chainId = wallet.chainId;
       let balance = "0";
+      let signer = null;
       
-      // For EVM chains, get network and balance
+      // Get network and balance
       if (provider) {
         const ethersProvider = new ethers.BrowserProvider(provider);
         const network = await ethersProvider.getNetwork();
         chainId = Number(network.chainId);
+        
+        // Get signer
+        signer = await ethersProvider.getSigner();
         
         // Get token balance using our blockchain integration
         try {
@@ -130,10 +138,6 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
           const balanceWei = await ethersProvider.getBalance(address);
           balance = ethers.formatEther(balanceWei);
         }
-      } else if (walletType === "cardano") {
-        // For Cardano, use different approach
-        chainId = CHAIN_IDS.CARDANO_TESTNET;
-        balance = "0"; // In a real app, we'd fetch the ADA balance
       }
 
       setWallet({
@@ -143,6 +147,7 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
         provider,
         connected: true,
         walletType,
+        signer
       });
 
       // Save wallet type to localStorage for persistence
@@ -160,8 +165,13 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
     setError(null);
     
     try {
+      // Default to Avalanche Fuji testnet for development, can be switched later
+      const defaultChainId = process.env.NODE_ENV === 'production' 
+        ? CHAIN_IDS.AVALANCHE_MAINNET 
+        : CHAIN_IDS.AVALANCHE_FUJI;
+      
       // Use our blockchain integration library
-      const walletInfo = await connectWallet(walletType as BlockchainWalletType, CHAIN_IDS.AVALANCHE_FUJI);
+      const walletInfo = await connectWallet(walletType as BlockchainWalletType, defaultChainId);
       
       // Update wallet state with the connected wallet info
       setWallet({
@@ -171,9 +181,10 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
         provider: walletInfo.provider,
         connected: walletInfo.connected,
         walletType: walletType,
+        signer: null // We'll get this in updateWalletInfo
       });
       
-      // Fetch additional wallet info like balance
+      // Fetch additional wallet info like balance and signer
       if (walletInfo.connected) {
         await updateWalletInfo(walletInfo.address, walletInfo.provider, walletType);
       }
@@ -204,6 +215,17 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
     }
 
     try {
+      // Only allow Ethereum and Avalanche chains
+      if (![
+        CHAIN_IDS.ETHEREUM_MAINNET,
+        CHAIN_IDS.ETHEREUM_SEPOLIA,
+        CHAIN_IDS.AVALANCHE_MAINNET,
+        CHAIN_IDS.AVALANCHE_FUJI
+      ].includes(chainId)) {
+        setError(`Chain ID ${chainId} is not supported by Phoenix Protocol`);
+        return false;
+      }
+      
       // Get chain metadata
       const chainMetadata = getChainMetadata(chainId);
       if (!chainMetadata) {
@@ -260,6 +282,11 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
     }
   };
 
+  // Helper function to get the current signer
+  const getSigner = (): ethers.Signer | null => {
+    return wallet.signer;
+  };
+
   return (
     <WalletContext.Provider
       value={{
@@ -269,6 +296,7 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
         isConnecting,
         error,
         switchChain,
+        getSigner
       }}
     >
       {children}
@@ -281,15 +309,6 @@ declare global {
   interface Window {
     ethereum?: any;
     avalanche?: any;
-    phantom?: {
-      solana?: any;
-    };
     coinbaseWalletExtension?: any;
-    cardano?: {
-      nami?: any;
-      eternl?: any;
-      flint?: any;
-      [key: string]: any;
-    };
   }
 }
