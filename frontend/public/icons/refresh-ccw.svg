@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <title>Refresh Counter-Clockwise</title>
+  
+  <!-- Refresh CCW -->
+  <path d="M1,4 L1,10 L7,10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M23,20 L23,14 L17,14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M20.49,9 C19.2506556,6.46676701 16.9931533,4.72919481 14.3633788,4.13341236 C11.7336044,3.53762991 8.97293754,4.14393083 6.8091123,5.78117612 C4.64528705,7.41842141 3.32234289,9.91940446 3.21,12.6 M3.51,15 C4.74934437,17.533233 7.00684673,19.2708052 9.63662122,19.8665876 C12.2663956,20.4623701 15.0270625,19.8560692 17.1908877,18.2188239 C19.354713,16.5815786 20.6776571,14.0805955 20.79,11.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="400" viewBox="0 0 600 400" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <title>Guardian Setup</title>
+  <defs>
+    <linearGradient id="phoenix-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF4500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8C00;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" />
+      <feOffset dx="1" dy="1" result="offsetblur" />
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3" />
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="600" height="400" fill="#f8f9fa" />
+  
+  <!-- Guardian Setup Card -->
+  <rect x="100" y="80" width="400" height="260" rx="10" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2" filter="url(#shadow)" />
+  
+  <!-- Card Header -->
+  <rect x="100" y="80" width="400" height="50" rx="10" fill="#F5F5F5" />
+  <text x="130" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333333">
+    Guardian Setup
+  </text>
+  
+  <!-- Guardian Form -->
+  <g transform="translate(130, 150)">
+    <!-- Guardian 1 -->
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="14" fill="#666666">
+      Guardian 1 (Email)
+    </text>
+    <rect x="0" y="10" width="340" height="30" rx="5" fill="#FFFFFF" stroke="#CCCCCC" />
+    <text x="10" y="30" font-family="Arial, sans-serif" font-size="14" fill="#333333">
+      guardian1@example.com
+    </text>
+    
+    <!-- Guardian 2 -->
+    <text x="0" y="60" font-family="Arial, sans-serif" font-size="14" fill="#666666">
+      Guardian 2 (Wallet Address)
+    </text>
+    <rect x="0" y="70" width="340" height="30" rx="5" fill="#FFFFFF" stroke="#CCCCCC" />
+    <text x="10" y="90" font-family="Arial, sans-serif" font-size="14" fill="#333333">
+      0x1a2b...3c4d
+    </text>
+    
+    <!-- Guardian 3 -->
+    <text x="0" y="120" font-family="Arial, sans-serif" font-size="14" fill="#666666">
+      Guardian 3 (Optional)
+    </text>
+    <rect x="0" y="130" width="340" height="30" rx="5" fill="#FFFFFF" stroke="#CCCCCC" />
+    <text x="10" y="150" font-family="Arial, sans-serif" font-size="14" fill="#999999">
+      Add another guardian...
+    </text>
+    
+    <!-- Recovery Threshold -->
+    <text x="0" y="180" font-family="Arial, sans-serif" font-size="14" fill="#666666">
+      Recovery Threshold
+    </text>
+    <rect x="0" y="190" width="150" height="30" rx="5" fill="#FFFFFF" stroke="#CCCCCC" />
+    <text x="10" y="210" font-family="Arial, sans-serif" font-size="14" fill="#333333">
+      2 of 3 guardians
+    </text>
+    <circle cx="140" cy="205" r="8" fill="#F5F5F5" />
+    <path d="M136,205 L140,209 L144,205" fill="none" stroke="#999999" stroke-width="1.5" />
+  </g>
+  
+  <!-- Save Button -->
+  <rect x="250" y="310" width="100" height="40" rx="20" fill="url(#phoenix-gradient)" />
+  <text x="300" y="335" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#FFFFFF">
+    Save
+  </text>
+  
+  <!-- Instructions -->
+  <text x="300" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333333">
+    Guardian Setup
+  </text>
+  
+  <!-- Shield Icon -->
+  <g transform="translate(300, 70)">
+    <path d="M0,-20 L-15,0 L-10,15 L0,20 L10,15 L15,0 Z" fill="#FFFFFF" stroke="url(#phoenix-gradient)" stroke-width="2" />
+    <path d="M-5,0 L-2,5 L5,-5" fill="none" stroke="url(#phoenix-gradient)" stroke-width="2" />
+  </g>
+  
+  <text x="300" y="380" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#666666">
+    Add guardians to help recover your account
+  </text>
+</svg>

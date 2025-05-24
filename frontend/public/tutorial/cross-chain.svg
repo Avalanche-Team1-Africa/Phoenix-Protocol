@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="400" viewBox="0 0 600 400" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <title>Cross-Chain Transaction</title>
+  <defs>
+    <linearGradient id="phoenix-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF4500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8C00;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="ethereum-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#627EEA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3C5EE9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="avalanche-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E84142;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C31B1C;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" />
+      <feOffset dx="1" dy="1" result="offsetblur" />
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3" />
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="600" height="400" fill="#f8f9fa" />
+  
+  <!-- Cross-Chain Visualization -->
+  <g transform="translate(100, 150)">
+    <!-- Ethereum Chain -->
+    <rect x="0" y="0" width="120" height="100" rx="10" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2" filter="url(#shadow)" />
+    <circle cx="60" cy="30" r="20" fill="url(#ethereum-gradient)" />
+    <text x="60" y="70" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333333">
+      Ethereum
+    </text>
+    <text x="60" y="90" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666666">
+      Source
+    </text>
+    
+    <!-- Phoenix Protocol Bridge -->
+    <rect x="170" y="0" width="160" height="100" rx="10" fill="#FFFFFF" stroke="url(#phoenix-gradient)" stroke-width="2" filter="url(#shadow)" />
+    <circle cx="250" cy="30" r="20" fill="url(#phoenix-gradient)" />
+    <path d="M250,20 C245,20 243,23 243,30 C243,37 245,40 250,40 C255,40 257,37 257,30 C257,23 255,20 250,20 Z" fill="#FFFFFF" />
+    <circle cx="250" cy="30" r="5" fill="url(#phoenix-gradient)" />
+    <text x="250" y="70" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333333">
+      Phoenix Protocol
+    </text>
+    <text x="250" y="90" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666666">
+      Bridge
+    </text>
+    
+    <!-- Avalanche Chain -->
+    <rect x="380" y="0" width="120" height="100" rx="10" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2" filter="url(#shadow)" />
+    <circle cx="440" cy="30" r="20" fill="url(#avalanche-gradient)" />
+    <text x="440" y="70" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333333">
+      Avalanche
+    </text>
+    <text x="440" y="90" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666666">
+      Destination
+    </text>
+    
+    <!-- Arrows -->
+    <g>
+      <line x1="120" y1="50" x2="170" y2="50" stroke="#CCCCCC" stroke-width="2" />
+      <polygon points="170,50 160,45 160,55" fill="#CCCCCC" />
+      
+      <line x1="330" y1="50" x2="380" y2="50" stroke="#CCCCCC" stroke-width="2" />
+      <polygon points="380,50 370,45 370,55" fill="#CCCCCC" />
+    </g>
+  </g>
+  
+  <!-- Transaction Details -->
+  <rect x="150" y="280" width="300" height="80" rx="10" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2" filter="url(#shadow)" />
+  <text x="170" y="305" font-family="Arial, sans-serif" font-size="14" fill="#666666">
+    Amount: 1.0 ETH → 15.5 AVAX
+  </text>
+  <text x="170" y="330" font-family="Arial, sans-serif" font-size="14" fill="#666666">
+    Fee: 0.005 ETH
+  </text>
+  <text x="170" y="355" font-family="Arial, sans-serif" font-size="14" fill="#666666">
+    Estimated Time: 5-10 minutes
+  </text>
+  
+  <!-- Instructions -->
+  <text x="300" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333333">
+    Cross-Chain Transaction
+  </text>
+  
+  <text x="300" y="70" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#666666">
+    Securely transfer assets between different blockchains
+  </text>
+</svg>
