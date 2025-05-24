@@ -672,12 +672,16 @@ export default function TransactionsPage() {
         </TabsContent>
       </Tabs>
       
-      <IntentModal 
-        isOpen={isIntentModalOpen} 
-        onClose={() => setIsIntentModalOpen(false)}
-        onConfirm={handleConfirmIntent}
-        onReject={handleRejectIntent}
-      />
+      {currentIntent && (
+        <IntentModal 
+          isOpen={isIntentModalOpen} 
+          onClose={() => setIsIntentModalOpen(false)}
+          onConfirm={handleConfirmIntent}
+          onReject={handleRejectIntent}
+          txType={currentIntent.txType}
+          payload={currentIntent.payload}
+        />
+      )}
       
       <WalletConnectModal 
         isOpen={isWalletModalOpen} 

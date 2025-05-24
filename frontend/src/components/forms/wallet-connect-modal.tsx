@@ -26,30 +26,6 @@ const walletOptions: WalletOption[] = [
     icon: "/wallets/core.svg",
     description: "Avalanche's Core Wallet Extension",
   },
-  {
-    id: "phantom",
-    name: "Phantom",
-    icon: "/wallets/phantom.svg",
-    description: "Connect to Phantom (Solana)",
-  },
-  {
-    id: "walletconnect",
-    name: "WalletConnect",
-    icon: "/wallets/walletconnect.svg",
-    description: "Connect with WalletConnect",
-  },
-  {
-    id: "coinbase",
-    name: "Coinbase Wallet",
-    icon: "/wallets/coinbase.svg",
-    description: "Connect to Coinbase Wallet",
-  },
-  {
-    id: "trust",
-    name: "Trust Wallet",
-    icon: "/wallets/trust.svg",
-    description: "Connect to Trust Wallet",
-  },
 ];
 
 interface WalletConnectModalProps {

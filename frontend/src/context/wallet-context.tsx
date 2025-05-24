@@ -6,8 +6,8 @@ import { connectWallet, disconnectWallet, WalletType as BlockchainWalletType } f
 import { CHAIN_IDS, getChainMetadata, RPC_URLS } from "@/lib/blockchain/providers";
 import { getTokenBalance } from "@/lib/blockchain/transactions";
 
-// Define wallet types - focusing only on EVM compatible wallets
-export type WalletType = "metamask" | "walletconnect" | "coinbase" | "trust" | "core" | "phantom";
+// Define wallet types - focusing only on MetaMask and Core wallet
+export type WalletType = "metamask" | "core";
 
 interface WalletInfo {
   address: string;
@@ -308,7 +308,5 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
 declare global {
   interface Window {
     ethereum?: any;
-    avalanche?: any;
-    coinbaseWalletExtension?: any;
   }
 }

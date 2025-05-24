@@ -37,7 +37,7 @@ export default function RecoveryPage() {
     }
   };
   
-  const handleRemoveGuardian = (index) => {
+  const handleRemoveGuardian = (index: number) => {
     const newGuardians = [...guardians];
     newGuardians.splice(index, 1);
     setGuardians(newGuardians);

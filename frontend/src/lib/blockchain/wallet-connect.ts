@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import { CHAIN_IDS, isChainSupported } from "./providers";
 
 // Wallet connection types
-export type WalletType = "metamask" | "walletconnect" | "coinbase" | "trust" | "core" | "phantom";
+export type WalletType = "metamask" | "core";
 
 export type WalletInfo = {
   address: string;
@@ -30,23 +30,8 @@ export async function connectWallet(
       case "metamask":
         provider = window.ethereum;
         break;
-      case "coinbase":
-        // In a real app, we would check for the Coinbase Wallet provider
-        provider = window.ethereum;
-        break;
-      case "walletconnect":
-        // In a real app, we would initialize WalletConnect
-        throw new Error("WalletConnect integration not implemented");
-      case "trust":
-        // In a real app, we would initialize Trust Wallet connection
-        provider = window.ethereum;
-        break;
       case "core":
-        // In a real app, we would initialize Core Wallet connection
-        provider = window.ethereum;
-        break;
-      case "phantom":
-        // In a real app, we would initialize Phantom Wallet connection
+        // Core wallet also uses window.ethereum
         provider = window.ethereum;
         break;
       default:

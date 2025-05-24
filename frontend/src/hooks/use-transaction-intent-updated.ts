@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useWallet } from "@/context/wallet-context";
 import { IntentRegistryService, Intent } from "@/contracts/IntentRegistryService";
+import { ethers } from "ethers";
 
 interface TransactionIntent {
   id: string;

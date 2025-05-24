@@ -25,6 +25,16 @@ const nextConfig: NextConfig = {
     // optimizeCss: true,
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
+  // Disable tracing to avoid permission issues
+  generateBuildId: async () => {
+    return 'phoenix-protocol-build';
+  },
+  output: 'standalone',
+  poweredByHeader: false,
+  // Disable telemetry to avoid trace file creation
+  env: {
+    NEXT_TELEMETRY_DISABLED: '1'
+  },
   webpack: (config) => {
     // Enable tree-shaking for packages
     config.optimization.usedExports = true;
