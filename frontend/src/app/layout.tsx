@@ -10,6 +10,7 @@ import { SecurityProvider } from "@/context/security-provider";
 import { OnboardingProvider } from "@/context/onboarding-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { ServiceWorkerInit } from "@/app/service-worker-init";
+import { WalletTutorial } from "@/components/onboarding/wallet-tutorial";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -54,6 +55,7 @@ export default function RootLayout({
                   </div>
                   <Toaster />
                   <ServiceWorkerInit />
+                  <WalletTutorial />
                 </OnboardingProvider>
               </SecurityProvider>
             </WalletProvider>

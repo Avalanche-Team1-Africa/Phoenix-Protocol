@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500" height="300" viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="500" height="300" fill="#F8F9FA"/>
+  
+  <!-- Shield Background -->
+  <path d="M250 60C220 80 180 90 140 90V150C140 200 185 240 250 260C315 240 360 200 360 150V90C320 90 280 80 250 60Z" fill="#FFF4E6" stroke="#FF9500" stroke-width="2"/>
+  
+  <!-- Recovery Icon -->
+  <circle cx="250" cy="150" r="50" fill="white" stroke="#FF9500" stroke-width="2"/>
+  <path d="M250 120C232.5 120 220 132.5 220 150C220 167.5 232.5 180 250 180" stroke="#FF9500" stroke-width="6" stroke-linecap="round"/>
+  <path d="M250 180C267.5 180 280 167.5 280 150C280 132.5 267.5 120 250 120" stroke="#FF9500" stroke-width="6" stroke-linecap="round" stroke-dasharray="4 4"/>
+  <path d="M250 110V130" stroke="#FF9500" stroke-width="6" stroke-linecap="round"/>
+  <path d="M250 170V190" stroke="#FF9500" stroke-width="6" stroke-linecap="round"/>
+  
+  <!-- Checkmarks -->
+  <circle cx="180" cy="100" r="10" fill="#51CF66"/>
+  <path d="M175 100L178 103L185 96" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <circle cx="320" cy="100" r="10" fill="#51CF66"/>
+  <path d="M315 100L318 103L325 96" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <circle cx="180" cy="200" r="10" fill="#51CF66"/>
+  <path d="M175 200L178 203L185 196" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <circle cx="320" cy="200" r="10" fill="#51CF66"/>
+  <path d="M315 200L318 203L325 196" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

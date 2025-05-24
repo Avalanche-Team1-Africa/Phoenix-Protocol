@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500" height="300" viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="500" height="300" fill="#F8F9FA"/>
+  
+  <!-- Transaction Card -->
+  <rect x="100" y="60" width="300" height="180" rx="10" fill="white" stroke="#DEE2E6" stroke-width="2"/>
+  <rect x="100" y="60" width="300" height="40" rx="10" fill="#FFF4E6" stroke="#FF9500" stroke-width="2"/>
+  
+  <!-- Card Header -->
+  <circle cx="125" cy="80" r="10" fill="#FF9500"/>
+  <rect x="145" y="75" width="100" height="10" rx="5" fill="#FF9500"/>
+  
+  <!-- Transaction Details -->
+  <rect x="120" y="120" width="80" height="10" rx="5" fill="#E9ECEF"/>
+  <rect x="210" y="120" width="170" height="10" rx="5" fill="#FF9500" opacity="0.8"/>
+  
+  <rect x="120" y="145" width="80" height="10" rx="5" fill="#E9ECEF"/>
+  <rect x="210" y="145" width="120" height="10" rx="5" fill="#FF9500" opacity="0.8"/>
+  
+  <rect x="120" y="170" width="80" height="10" rx="5" fill="#E9ECEF"/>
+  <rect x="210" y="170" width="60" height="10" rx="5" fill="#FF9500" opacity="0.8"/>
+  
+  <!-- Verification Checkmark -->
+  <circle cx="350" cy="210" r="15" fill="#51CF66"/>
+  <path d="M343 210L348 215L358 205" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
