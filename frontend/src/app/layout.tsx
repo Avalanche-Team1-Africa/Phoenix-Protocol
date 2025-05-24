@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/context/theme-provider";
 import { I18nProvider } from "@/context/i18n-provider";
 import { SecurityProvider } from "@/context/security-provider";
 import { OnboardingProvider } from "@/context/onboarding-provider";
+import { ErrorProvider } from "@/context/error-context";
 import { Toaster } from "@/components/ui/toaster";
 import { ServiceWorkerInit } from "@/app/service-worker-init";
 import { WalletTutorial } from "@/components/onboarding/wallet-tutorial";
@@ -45,20 +46,22 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <I18nProvider>
-            <WalletProvider>
-              <SecurityProvider>
-                <OnboardingProvider>
-                  <div className="flex min-h-screen flex-col">
-                    <Header />
-                    <main className="flex-1">{children}</main>
-                    <Footer />
-                  </div>
-                  <Toaster />
-                  <ServiceWorkerInit />
-                  <WalletTutorial />
-                </OnboardingProvider>
-              </SecurityProvider>
-            </WalletProvider>
+            <ErrorProvider>
+              <WalletProvider>
+                <SecurityProvider>
+                  <OnboardingProvider>
+                    <div className="flex min-h-screen flex-col">
+                      <Header />
+                      <main className="flex-1">{children}</main>
+                      <Footer />
+                    </div>
+                    <Toaster />
+                    <ServiceWorkerInit />
+                    <WalletTutorial />
+                  </OnboardingProvider>
+                </SecurityProvider>
+              </WalletProvider>
+            </ErrorProvider>
           </I18nProvider>
         </ThemeProvider>
       </body>

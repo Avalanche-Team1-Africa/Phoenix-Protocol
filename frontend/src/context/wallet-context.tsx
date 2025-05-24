@@ -5,6 +5,8 @@ import { ethers } from "ethers";
 import { connectWallet, disconnectWallet, WalletType as BlockchainWalletType } from "@/lib/blockchain/wallet-connect";
 import { CHAIN_IDS, getChainMetadata, RPC_URLS } from "@/lib/blockchain/providers";
 import { getTokenBalance } from "@/lib/blockchain/transactions";
+import { useError } from "@/context/error-context";
+import { ErrorCodes } from "@/lib/utils/error-handler";
 
 // Define wallet types
 export type WalletType = "metamask" | "core" | "coinbase" | "walletconnect" | "trust" | "phantom";
@@ -172,9 +174,16 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
       }
     } catch (error) {
       console.error("Error updating wallet info:", error);
-      setError("Failed to update wallet information");
+      const parsedError = handleError({
+        message: "Failed to update wallet information",
+        code: ErrorCodes.UNKNOWN_ERROR,
+        originalError: error
+      });
+      setError(parsedError.message);
     }
   };
+
+  const { handleError } = useError();
 
   const connect = async (walletType: WalletType): Promise<boolean> => {
     setIsConnecting(true);
@@ -209,7 +218,11 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
       return walletInfo.connected;
     } catch (error: any) {
       console.error("Wallet connection error:", error);
-      setError(error.message || "Failed to connect wallet");
+      
+      // Use our error handling system
+      const parsedError = handleError(error);
+      setError(parsedError.message);
+      
       setIsConnecting(false);
       return false;
     }
@@ -229,7 +242,11 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
 
   const switchChain = async (chainId: number): Promise<boolean> => {
     if (!wallet.provider) {
-      setError("Wallet not connected");
+      const error = handleError({
+        message: "Wallet not connected",
+        code: ErrorCodes.WALLET_DISCONNECTED
+      });
+      setError(error.message);
       return false;
     }
 
@@ -241,14 +258,22 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
         CHAIN_IDS.AVALANCHE_MAINNET,
         CHAIN_IDS.AVALANCHE_FUJI
       ].includes(chainId)) {
-        setError(`Chain ID ${chainId} is not supported by Phoenix Protocol`);
+        const error = handleError({
+          message: `Chain ID ${chainId} is not supported by Phoenix Protocol`,
+          code: ErrorCodes.NETWORK_UNSUPPORTED
+        });
+        setError(error.message);
         return false;
       }
       
       // Get chain metadata
       const chainMetadata = getChainMetadata(chainId);
       if (!chainMetadata) {
-        setError(`Chain ID ${chainId} is not supported`);
+        const error = handleError({
+          message: `Chain ID ${chainId} is not supported`,
+          code: ErrorCodes.NETWORK_UNSUPPORTED
+        });
+        setError(error.message);
         return false;
       }
       
@@ -296,7 +321,8 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
       return true;
     } catch (error: any) {
       console.error("Error switching chain:", error);
-      setError(error.message || "Failed to switch chain");
+      const parsedError = handleError(error);
+      setError(parsedError.message);
       return false;
     }
   };
