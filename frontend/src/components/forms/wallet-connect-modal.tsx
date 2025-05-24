@@ -36,10 +36,17 @@ interface WalletConnectModalProps {
 export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps) {
   const { connect, wallet, disconnect, isConnecting, error } = useWallet();
 
+  const [connectingWallet, setConnectingWallet] = useState<WalletType | null>(null);
+
   const handleConnect = async (walletType: WalletType) => {
-    const success = await connect(walletType);
-    if (success) {
-      onClose();
+    setConnectingWallet(walletType);
+    try {
+      const success = await connect(walletType);
+      if (success) {
+        onClose();
+      }
+    } finally {
+      setConnectingWallet(null);
     }
   };
 
@@ -84,8 +91,33 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
         </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-phoenix-light-error-light dark:bg-phoenix-dark-error-light text-phoenix-light-error dark:text-phoenix-dark-error rounded-md text-sm">
-            {error}
+          <div className="mb-4 p-3 bg-phoenix-light-error-light dark:bg-phoenix-dark-error-light text-phoenix-light-error dark:text-phoenix-dark-error rounded-md">
+            <div className="flex items-start">
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                className="mr-2 mt-0.5 flex-shrink-0"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <div>
+                <p className="font-medium text-sm">{error}</p>
+                {error.includes("not installed") && (
+                  <p className="text-xs mt-1">
+                    Click the wallet option again to visit the download page.
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
         )}
 
@@ -166,29 +198,45 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {walletOptions.map((option, index) => (
-              <button
-                key={option.id}
-                className={`flex flex-col items-center p-4 border border-phoenix-light-border dark:border-phoenix-dark-border rounded-lg hover:bg-phoenix-light-muted dark:hover:bg-phoenix-dark-muted transition-all hover:shadow-md hover:scale-[1.03] active:scale-[0.98] animate-fadeIn`}
-                style={{ animationDelay: `${index * 50}ms` }}
-                onClick={() => handleConnect(option.id)}
-                disabled={isConnecting}
-              >
-                <div className="w-12 h-12 mb-3 flex items-center justify-center">
-                  <Image
-                    src={option.icon}
-                    alt={option.name}
-                    width={48}
-                    height={48}
-                    className="rounded-full"
-                  />
-                </div>
-                <span className="font-medium text-phoenix-light-text-primary dark:text-phoenix-dark-text-primary">{option.name}</span>
-                <span className="text-xs text-phoenix-light-text-secondary dark:text-phoenix-dark-text-secondary mt-1 text-center">
-                  {option.description}
-                </span>
-              </button>
-            ))}
+            {walletOptions.map((option, index) => {
+              const isConnectingThis = connectingWallet === option.id;
+              return (
+                <button
+                  key={option.id}
+                  className={`flex flex-col items-center p-4 border ${
+                    isConnectingThis 
+                      ? 'border-phoenix-light-primary dark:border-phoenix-dark-primary' 
+                      : 'border-phoenix-light-border dark:border-phoenix-dark-border'
+                  } rounded-lg hover:bg-phoenix-light-muted dark:hover:bg-phoenix-dark-muted transition-all hover:shadow-md hover:scale-[1.03] active:scale-[0.98] animate-fadeIn ${
+                    isConnecting && !isConnectingThis ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
+                  style={{ animationDelay: `${index * 50}ms` }}
+                  onClick={() => handleConnect(option.id)}
+                  disabled={isConnecting}
+                >
+                  <div className="w-12 h-12 mb-3 flex items-center justify-center relative">
+                    {isConnectingThis && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-full border-2 border-transparent border-t-phoenix-light-primary dark:border-t-phoenix-dark-primary animate-spin"></div>
+                      </div>
+                    )}
+                    <Image
+                      src={option.icon}
+                      alt={option.name}
+                      width={48}
+                      height={48}
+                      className={`rounded-full transition-opacity ${isConnectingThis ? 'opacity-70' : 'opacity-100'}`}
+                    />
+                  </div>
+                  <span className="font-medium text-phoenix-light-text-primary dark:text-phoenix-dark-text-primary">
+                    {option.name}
+                  </span>
+                  <span className="text-xs text-phoenix-light-text-secondary dark:text-phoenix-dark-text-secondary mt-1 text-center">
+                    {isConnectingThis ? 'Connecting...' : option.description}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         )}
       </div>

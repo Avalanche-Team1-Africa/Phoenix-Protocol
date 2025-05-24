@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { CHAIN_IDS, isChainSupported } from "./providers";
+import { CHAIN_IDS, isChainSupported, getChainMetadata } from "./providers";
 
 // Wallet connection types
 export type WalletType = "metamask" | "core";
@@ -13,6 +13,22 @@ export type WalletInfo = {
   signer?: ethers.Signer;
 };
 
+// Detect if MetaMask is installed
+function isMetaMaskInstalled(): boolean {
+  return typeof window !== "undefined" && 
+    window.ethereum !== undefined && 
+    window.ethereum.isMetaMask === true;
+}
+
+// Detect if Core Wallet is installed
+function isCoreWalletInstalled(): boolean {
+  return typeof window !== "undefined" && 
+    window.ethereum !== undefined && 
+    (window.ethereum.isCoreWallet === true || 
+     // Some versions of Core Wallet might use a different identifier
+     window.avalanche !== undefined);
+}
+
 // Connect to wallet
 export async function connectWallet(
   walletType: WalletType,
@@ -20,25 +36,48 @@ export async function connectWallet(
 ): Promise<WalletInfo> {
   try {
     // For EVM-compatible chains
-    if (typeof window === "undefined" || !window.ethereum) {
-      throw new Error("No Ethereum provider found. Please install a wallet.");
+    if (typeof window === "undefined") {
+      throw new Error("Window object not available. Are you running in a browser?");
     }
     
     let provider;
     
     switch (walletType) {
       case "metamask":
+        if (!isMetaMaskInstalled()) {
+          // If MetaMask is not installed, open the MetaMask download page
+          window.open('https://metamask.io/download/', '_blank');
+          throw new Error("MetaMask is not installed. Please install MetaMask and try again.");
+        }
         provider = window.ethereum;
         break;
+        
       case "core":
-        // Core wallet also uses window.ethereum
+        if (!isCoreWalletInstalled()) {
+          // If Core Wallet is not installed, open the Core Wallet download page
+          window.open('https://core.app/download', '_blank');
+          throw new Error("Core Wallet is not installed. Please install Core Wallet and try again.");
+        }
         provider = window.ethereum;
         break;
+        
       default:
+        if (!window.ethereum) {
+          throw new Error("No Ethereum provider found. Please install a wallet.");
+        }
         provider = window.ethereum;
     }
     
-    // Request account access
+    // Ensure the wallet is the one the user wants to connect with
+    if (walletType === "metamask" && !isMetaMaskInstalled()) {
+      throw new Error("MetaMask is not the active wallet. Please switch to MetaMask in your browser.");
+    }
+    
+    if (walletType === "core" && !isCoreWalletInstalled()) {
+      throw new Error("Core Wallet is not the active wallet. Please switch to Core Wallet in your browser.");
+    }
+    
+    // Request account access - this will trigger the wallet popup
     const accounts = await provider.request({ method: "eth_requestAccounts" });
     const address = accounts[0];
     
@@ -57,8 +96,38 @@ export async function connectWallet(
       } catch (error: any) {
         // Chain not added to wallet
         if (error.code === 4902) {
-          // In a real app, we would add the chain to the wallet
-          console.warn("Chain not added to wallet");
+          // Add the chain to the wallet
+          const chainMetadata = getChainMetadata(preferredChainId);
+          if (chainMetadata) {
+            try {
+              await provider.request({
+                method: "wallet_addEthereumChain",
+                params: [
+                  {
+                    chainId: `0x${preferredChainId.toString(16)}`,
+                    chainName: chainMetadata.name,
+                    nativeCurrency: chainMetadata.nativeCurrency,
+                    rpcUrls: [CHAIN_IDS.AVALANCHE_FUJI === preferredChainId 
+                      ? "https://api.avax-test.network/ext/bc/C/rpc" 
+                      : "https://api.avax.network/ext/bc/C/rpc"],
+                    blockExplorerUrls: [
+                      preferredChainId === CHAIN_IDS.AVALANCHE_MAINNET
+                        ? "https://snowtrace.io"
+                        : "https://testnet.snowtrace.io",
+                    ],
+                  },
+                ],
+              });
+              // Try switching again after adding
+              await provider.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: `0x${preferredChainId.toString(16)}` }],
+              });
+              chainId = preferredChainId;
+            } catch (addError) {
+              console.error("Failed to add chain to wallet:", addError);
+            }
+          }
         } else {
           console.error("Failed to switch chain:", error);
         }

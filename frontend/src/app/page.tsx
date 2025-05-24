@@ -5,7 +5,55 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Shield, RefreshCw, Users, Lock, Zap, CheckCircle } from "lucide-react";
+import { ArrowRight, Shield, RefreshCw, Users, Lock, Zap, CheckCircle, Wallet } from "lucide-react";
+import { useWallet } from "@/context/wallet-context";
+import { WalletConnectModal } from "@/components/forms/wallet-connect-modal";
+import { formatAddress } from "@/lib/utils/blockchain";
+
+// Wallet Connect Button Component
+function WalletConnectButton() {
+  const { wallet, disconnect } = useWallet();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  return (
+    <>
+      {wallet.connected ? (
+        <Button 
+          variant="outline" 
+          size="lg" 
+          onClick={() => disconnect()}
+          className="bg-phoenix-light-success-light dark:bg-phoenix-dark-success-light text-phoenix-light-success dark:text-phoenix-dark-success border-phoenix-light-success/30 dark:border-phoenix-dark-success/30"
+        >
+          <div className="flex items-center">
+            <Image
+              src={`/wallets/${wallet.walletType || 'metamask'}.svg`}
+              alt={wallet.walletType || 'wallet'}
+              width={20}
+              height={20}
+              className="mr-2"
+            />
+            {formatAddress(wallet.address, 6)}
+          </div>
+        </Button>
+      ) : (
+        <Button 
+          variant="outline" 
+          size="lg" 
+          onClick={() => setIsModalOpen(true)}
+          className="border-phoenix-light-primary/30 dark:border-phoenix-dark-primary/30"
+        >
+          <Wallet className="mr-2 h-5 w-5" />
+          Connect Wallet
+        </Button>
+      )}
+      
+      <WalletConnectModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
+    </>
+  );
+}
 
 export default function Home() {
   // State for animation
@@ -131,6 +179,7 @@ export default function Home() {
                     Read Documentation
                   </Link>
                 </Button>
+                <WalletConnectButton />
               </div>
             </div>
             <div className={`relative h-[450px] rounded-lg overflow-hidden shadow-xl transition-all duration-1000 ${isVisible.hero ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
