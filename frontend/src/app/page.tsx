@@ -136,7 +136,7 @@ export default function Home() {
             <div className={`relative h-[450px] rounded-lg overflow-hidden shadow-xl transition-all duration-1000 ${isVisible.hero ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
               <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-red-500/20 z-10"></div>
               <Image 
-                src="/hero-blockchain.jpg" 
+                src="/hero-blockchain.svg" 
                 alt="Blockchain visualization" 
                 fill 
                 className="object-cover"
@@ -360,7 +360,7 @@ export default function Home() {
             <div className="relative h-[500px] rounded-lg overflow-hidden shadow-xl">
               <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-red-500/20 z-10"></div>
               <Image 
-                src="/workflow-diagram.jpg" 
+                src="/workflow-diagram.svg" 
                 alt="Phoenix Protocol workflow" 
                 fill 
                 className="object-cover"

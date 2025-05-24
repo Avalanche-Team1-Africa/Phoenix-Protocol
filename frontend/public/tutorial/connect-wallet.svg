@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="400" viewBox="0 0 600 400" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <title>Connect Your Wallet</title>
+  <defs>
+    <linearGradient id="phoenix-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF4500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8C00;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" />
+      <feOffset dx="1" dy="1" result="offsetblur" />
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3" />
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="600" height="400" fill="#f8f9fa" />
+  
+  <!-- Wallet Connect Modal -->
+  <rect x="150" y="80" width="300" height="240" rx="10" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2" filter="url(#shadow)" />
+  
+  <!-- Modal Header -->
+  <rect x="150" y="80" width="300" height="50" rx="10" fill="#F5F5F5" />
+  <text x="180" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333333">
+    Connect Your Wallet
+  </text>
+  <circle cx="430" cy="105" r="12" fill="#FFFFFF" stroke="#E0E0E0" />
+  <line x1="425" y1="100" x2="435" y2="110" stroke="#999999" stroke-width="2" />
+  <line x1="425" y1="110" x2="435" y2="100" stroke="#999999" stroke-width="2" />
+  
+  <!-- Wallet Options -->
+  <g transform="translate(180, 150)">
+    <!-- MetaMask -->
+    <rect width="100" height="100" rx="10" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" />
+    <circle cx="50" cy="40" r="25" fill="#F6851B" />
+    <path d="M50,20 L35,45 L50,40 L65,45 Z" fill="#FFFFFF" />
+    <path d="M35,45 L35,65 L50,60 L65,65 L65,45 L50,40 Z" fill="#FFFFFF" />
+    <text x="50" y="85" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333333">
+      MetaMask
+    </text>
+  </g>
+  
+  <g transform="translate(320, 150)">
+    <!-- Core Wallet -->
+    <rect width="100" height="100" rx="10" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" />
+    <circle cx="50" cy="40" r="25" fill="#E84142" />
+    <rect x="35" y="25" width="30" height="30" fill="#FFFFFF" />
+    <text x="50" y="85" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333333">
+      Core Wallet
+    </text>
+  </g>
+  
+  <!-- Instructions -->
+  <text x="300" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333333">
+    Connect Your Wallet
+  </text>
+  
+  <text x="300" y="350" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#666666">
+    Choose a wallet to connect to Phoenix Protocol
+  </text>
+</svg>

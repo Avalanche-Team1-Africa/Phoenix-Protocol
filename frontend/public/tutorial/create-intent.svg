@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="400" viewBox="0 0 600 400" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <title>Create Transaction Intent</title>
+  <defs>
+    <linearGradient id="phoenix-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF4500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8C00;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" />
+      <feOffset dx="1" dy="1" result="offsetblur" />
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3" />
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="600" height="400" fill="#f8f9fa" />
+  
+  <!-- Transaction Form -->
+  <rect x="100" y="80" width="400" height="260" rx="10" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2" filter="url(#shadow)" />
+  
+  <!-- Form Header -->
+  <rect x="100" y="80" width="400" height="50" rx="10" fill="#F5F5F5" />
+  <text x="130" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333333">
+    Create Transaction Intent
+  </text>
+  
+  <!-- Form Fields -->
+  <g transform="translate(130, 150)">
+    <!-- Source Chain -->
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="14" fill="#666666">
+      Source Chain
+    </text>
+    <rect x="0" y="10" width="150" height="30" rx="5" fill="#FFFFFF" stroke="#CCCCCC" />
+    <text x="10" y="30" font-family="Arial, sans-serif" font-size="14" fill="#333333">
+      Ethereum
+    </text>
+    <circle cx="140" cy="25" r="8" fill="#F5F5F5" />
+    <path d="M136,25 L140,29 L144,25" fill="none" stroke="#999999" stroke-width="1.5" />
+    
+    <!-- Destination Chain -->
+    <text x="180" y="0" font-family="Arial, sans-serif" font-size="14" fill="#666666">
+      Destination Chain
+    </text>
+    <rect x="180" y="10" width="150" height="30" rx="5" fill="#FFFFFF" stroke="#CCCCCC" />
+    <text x="190" y="30" font-family="Arial, sans-serif" font-size="14" fill="#333333">
+      Avalanche
+    </text>
+    <circle cx="320" cy="25" r="8" fill="#F5F5F5" />
+    <path d="M316,25 L320,29 L324,25" fill="none" stroke="#999999" stroke-width="1.5" />
+    
+    <!-- Amount -->
+    <text x="0" y="70" font-family="Arial, sans-serif" font-size="14" fill="#666666">
+      Amount
+    </text>
+    <rect x="0" y="80" width="150" height="30" rx="5" fill="#FFFFFF" stroke="#CCCCCC" />
+    <text x="10" y="100" font-family="Arial, sans-serif" font-size="14" fill="#333333">
+      1.0 ETH
+    </text>
+    
+    <!-- Recipient Address -->
+    <text x="0" y="140" font-family="Arial, sans-serif" font-size="14" fill="#666666">
+      Recipient Address
+    </text>
+    <rect x="0" y="150" width="330" height="30" rx="5" fill="#FFFFFF" stroke="#CCCCCC" />
+    <text x="10" y="170" font-family="Arial, sans-serif" font-size="14" fill="#333333">
+      0x1a2b...3c4d
+    </text>
+  </g>
+  
+  <!-- Submit Button -->
+  <rect x="250" y="310" width="100" height="40" rx="20" fill="url(#phoenix-gradient)" />
+  <text x="300" y="335" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#FFFFFF">
+    Submit
+  </text>
+  
+  <!-- Instructions -->
+  <text x="300" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333333">
+    Create Transaction Intent
+  </text>
+  
+  <text x="300" y="380" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#666666">
+    Fill in the details to create a cross-chain transaction
+  </text>
+</svg>

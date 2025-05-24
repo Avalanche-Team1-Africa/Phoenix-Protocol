@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="50" viewBox="0 0 200 50" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <title>Phoenix Protocol</title>
+  <defs>
+    <linearGradient id="phoenix-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF4500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8C00;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <!-- Phoenix Symbol -->
+    <path d="M40,10 C30,10 25,15 25,25 C25,35 30,40 40,40 C50,40 55,35 55,25 C55,15 50,10 40,10 Z" fill="url(#phoenix-gradient)" />
+    <path d="M40,15 C33,15 30,18 30,25 C30,32 33,35 40,35 C47,35 50,32 50,25 C50,18 47,15 40,15 Z" fill="#FFFFFF" />
+    <path d="M40,20 C36,20 35,22 35,25 C35,28 36,30 40,30 C44,30 45,28 45,25 C45,22 44,20 40,20 Z" fill="url(#phoenix-gradient)" />
+    
+    <!-- Flame elements -->
+    <path d="M40,5 C38,5 37,6 37,8 C37,10 38,12 40,12 C42,12 43,10 43,8 C43,6 42,5 40,5 Z" fill="url(#phoenix-gradient)" />
+    <path d="M30,8 C28,8 27,9 27,11 C27,13 28,15 30,15 C32,15 33,13 33,11 C33,9 32,8 30,8 Z" fill="url(#phoenix-gradient)" />
+    <path d="M50,8 C48,8 47,9 47,11 C47,13 48,15 50,15 C52,15 53,13 53,11 C53,9 52,8 50,8 Z" fill="url(#phoenix-gradient)" />
+    
+    <!-- Text -->
+    <text x="70" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333333">
+      Phoenix Protocol
+    </text>
+  </g>
+</svg>

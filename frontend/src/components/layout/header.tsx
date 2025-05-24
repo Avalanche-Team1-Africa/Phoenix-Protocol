@@ -25,7 +25,7 @@ export function Header() {
         <div className="flex items-center gap-6 md:gap-10">
           <Link href="/" className="flex items-center space-x-2">
             <Image 
-              src="/PhoenixProtocol.png" 
+              src="/PhoenixProtocol.svg" 
               alt="Phoenix Protocol Logo" 
               width={40} 
               height={40} 
@@ -166,7 +166,7 @@ export function Header() {
           <div className="container py-4 space-y-4">
             <div className="flex items-center mb-4">
               <Image 
-                src="/PhoenixProtocol.png" 
+                src="/PhoenixProtocol.svg" 
                 alt="Phoenix Protocol Logo" 
                 width={32} 
                 height={32} 

@@ -131,7 +131,7 @@ export function TwoFactorModal({
               <div className="flex justify-center mb-4">
                 <div className="relative h-48 w-48 bg-white p-2 rounded-lg">
                   <Image
-                    src="/qr-code-placeholder.png"
+                    src="/qr-code-placeholder.svg"
                     alt="QR Code"
                     fill
                     className="object-contain"

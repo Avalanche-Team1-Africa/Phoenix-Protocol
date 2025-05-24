@@ -20,27 +20,27 @@ const tutorialSteps = [
   {
     title: "Welcome to Phoenix Protocol",
     description: "Phoenix Protocol is a smart contract recovery and UX protection middleware for DeFi and NFT ecosystems. Let's get you started with the basics.",
-    image: "/tutorial/welcome.png",
+    image: "/tutorial/welcome.svg",
   },
   {
     title: "Connect Your Wallet",
     description: "First, connect your wallet by clicking the 'Connect Wallet' button in the top right corner. We support multiple wallet types including MetaMask, WalletConnect, and hardware wallets.",
-    image: "/tutorial/connect-wallet.png",
+    image: "/tutorial/connect-wallet.svg",
   },
   {
     title: "Create Transaction Intents",
     description: "Before executing a transaction, create an intent that specifies what you want to do. This helps protect you from malicious transactions and provides a safety net.",
-    image: "/tutorial/create-intent.png",
+    image: "/tutorial/create-intent.svg",
   },
   {
     title: "Verify Transactions",
     description: "When you execute a transaction, Phoenix Protocol verifies that it matches your intent. If there's a discrepancy, you'll be alerted and can prevent potential loss of funds.",
-    image: "/tutorial/verify-transaction.png",
+    image: "/tutorial/verify-transaction.svg",
   },
   {
     title: "Recover When Needed",
     description: "If something goes wrong, you can use our recovery features to roll back transactions or recover funds. This provides an extra layer of security for your digital assets.",
-    image: "/tutorial/recovery.png",
+    image: "/tutorial/recovery.svg",
   },
 ];
 
