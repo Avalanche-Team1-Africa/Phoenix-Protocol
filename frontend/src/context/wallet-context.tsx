@@ -6,8 +6,8 @@ import { connectWallet, disconnectWallet, WalletType as BlockchainWalletType } f
 import { CHAIN_IDS, getChainMetadata, RPC_URLS } from "@/lib/blockchain/providers";
 import { getTokenBalance } from "@/lib/blockchain/transactions";
 
-// Define wallet types - focusing only on MetaMask and Core wallet
-export type WalletType = "metamask" | "core";
+// Define wallet types
+export type WalletType = "metamask" | "core" | "coinbase" | "walletconnect" | "trust" | "phantom";
 
 interface WalletInfo {
   address: string;
@@ -65,13 +65,29 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
     const checkConnection = async () => {
       // Check localStorage for previous connection
       const savedWalletType = localStorage.getItem("phoenixWalletType") as WalletType | null;
+      const lastWalletType = localStorage.getItem("phoenixLastWalletType") as WalletType | null;
       
+      // First try the active connection
       if (savedWalletType) {
         try {
           await connect(savedWalletType);
+          return; // If successful, we're done
         } catch (error) {
           console.error("Failed to reconnect wallet:", error);
           localStorage.removeItem("phoenixWalletType");
+          // Continue to try the last wallet type
+        }
+      }
+      
+      // If no active connection or it failed, try the last used wallet
+      // but only if auto-connect is enabled
+      const autoConnect = localStorage.getItem("phoenixAutoConnect") === "true";
+      if (autoConnect && lastWalletType) {
+        try {
+          await connect(lastWalletType);
+        } catch (error) {
+          console.error("Failed to connect to last wallet:", error);
+          // Don't remove the last wallet type, user might want to try again manually
         }
       }
     };
@@ -199,13 +215,16 @@ export const WalletProvider = ({ children }: WalletProviderProps) => {
     }
   };
 
-  const disconnect = () => {
+  const disconnect = async () => {
     // Use our blockchain integration to disconnect
-    disconnectWallet();
+    await disconnectWallet(wallet.walletType);
     
     // Reset wallet state
     setWallet(initialWalletState);
     localStorage.removeItem("phoenixWalletType");
+    
+    // Keep the last wallet type for potential reconnection
+    // but only remove the active connection
   };
 
   const switchChain = async (chainId: number): Promise<boolean> => {

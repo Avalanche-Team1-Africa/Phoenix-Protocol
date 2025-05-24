@@ -26,6 +26,30 @@ const walletOptions: WalletOption[] = [
     icon: "/wallets/core.svg",
     description: "Avalanche's Core Wallet Extension",
   },
+  {
+    id: "coinbase",
+    name: "Coinbase Wallet",
+    icon: "/wallets/coinbase.svg",
+    description: "Connect with Coinbase Wallet",
+  },
+  {
+    id: "walletconnect",
+    name: "WalletConnect",
+    icon: "/wallets/walletconnect.svg",
+    description: "Scan with any mobile wallet",
+  },
+  {
+    id: "trust",
+    name: "Trust Wallet",
+    icon: "/wallets/trust.svg",
+    description: "Connect to Trust Wallet",
+  },
+  {
+    id: "phantom",
+    name: "Phantom",
+    icon: "/wallets/phantom.svg",
+    description: "Solana's Phantom Wallet",
+  },
 ];
 
 interface WalletConnectModalProps {
@@ -37,17 +61,30 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
   const { connect, wallet, disconnect, isConnecting, error } = useWallet();
 
   const [connectingWallet, setConnectingWallet] = useState<WalletType | null>(null);
+  const [rememberWallet, setRememberWallet] = useState<boolean>(
+    localStorage.getItem("phoenixAutoConnect") === "true"
+  );
 
   const handleConnect = async (walletType: WalletType) => {
     setConnectingWallet(walletType);
     try {
       const success = await connect(walletType);
       if (success) {
+        // Save auto-connect preference
+        if (rememberWallet) {
+          localStorage.setItem("phoenixAutoConnect", "true");
+        } else {
+          localStorage.removeItem("phoenixAutoConnect");
+        }
         onClose();
       }
     } finally {
       setConnectingWallet(null);
     }
+  };
+  
+  const toggleRememberWallet = () => {
+    setRememberWallet(!rememberWallet);
   };
 
   const [isVisible, setIsVisible] = useState(false);
@@ -197,46 +234,62 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {walletOptions.map((option, index) => {
-              const isConnectingThis = connectingWallet === option.id;
-              return (
-                <button
-                  key={option.id}
-                  className={`flex flex-col items-center p-4 border ${
-                    isConnectingThis 
-                      ? 'border-phoenix-light-primary dark:border-phoenix-dark-primary' 
-                      : 'border-phoenix-light-border dark:border-phoenix-dark-border'
-                  } rounded-lg hover:bg-phoenix-light-muted dark:hover:bg-phoenix-dark-muted transition-all hover:shadow-md hover:scale-[1.03] active:scale-[0.98] animate-fadeIn ${
-                    isConnecting && !isConnectingThis ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
-                  style={{ animationDelay: `${index * 50}ms` }}
-                  onClick={() => handleConnect(option.id)}
-                  disabled={isConnecting}
-                >
-                  <div className="w-12 h-12 mb-3 flex items-center justify-center relative">
-                    {isConnectingThis && (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-12 h-12 rounded-full border-2 border-transparent border-t-phoenix-light-primary dark:border-t-phoenix-dark-primary animate-spin"></div>
-                      </div>
-                    )}
-                    <Image
-                      src={option.icon}
-                      alt={option.name}
-                      width={48}
-                      height={48}
-                      className={`rounded-full transition-opacity ${isConnectingThis ? 'opacity-70' : 'opacity-100'}`}
-                    />
-                  </div>
-                  <span className="font-medium text-phoenix-light-text-primary dark:text-phoenix-dark-text-primary">
-                    {option.name}
-                  </span>
-                  <span className="text-xs text-phoenix-light-text-secondary dark:text-phoenix-dark-text-secondary mt-1 text-center">
-                    {isConnectingThis ? 'Connecting...' : option.description}
-                  </span>
-                </button>
-              );
-            })}
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {walletOptions.map((option, index) => {
+                const isConnectingThis = connectingWallet === option.id;
+                return (
+                  <button
+                    key={option.id}
+                    className={`flex flex-col items-center p-4 border ${
+                      isConnectingThis 
+                        ? 'border-phoenix-light-primary dark:border-phoenix-dark-primary' 
+                        : 'border-phoenix-light-border dark:border-phoenix-dark-border'
+                    } rounded-lg hover:bg-phoenix-light-muted dark:hover:bg-phoenix-dark-muted transition-all hover:shadow-md hover:scale-[1.03] active:scale-[0.98] animate-fadeIn ${
+                      isConnecting && !isConnectingThis ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                    style={{ animationDelay: `${index * 50}ms` }}
+                    onClick={() => handleConnect(option.id)}
+                    disabled={isConnecting}
+                  >
+                    <div className="w-12 h-12 mb-3 flex items-center justify-center relative">
+                      {isConnectingThis && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-12 h-12 rounded-full border-2 border-transparent border-t-phoenix-light-primary dark:border-t-phoenix-dark-primary animate-spin"></div>
+                        </div>
+                      )}
+                      <Image
+                        src={option.icon}
+                        alt={option.name}
+                        width={48}
+                        height={48}
+                        className={`rounded-full transition-opacity ${isConnectingThis ? 'opacity-70' : 'opacity-100'}`}
+                      />
+                    </div>
+                    <span className="font-medium text-phoenix-light-text-primary dark:text-phoenix-dark-text-primary">
+                      {option.name}
+                    </span>
+                    <span className="text-xs text-phoenix-light-text-secondary dark:text-phoenix-dark-text-secondary mt-1 text-center">
+                      {isConnectingThis ? 'Connecting...' : option.description}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            
+            <div className="flex items-center justify-center mt-4">
+              <label className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={rememberWallet}
+                  onChange={toggleRememberWallet}
+                  className="h-4 w-4 rounded border-phoenix-light-border dark:border-phoenix-dark-border text-phoenix-light-primary dark:text-phoenix-dark-primary focus:ring-phoenix-light-primary dark:focus:ring-phoenix-dark-primary"
+                />
+                <span className="ml-2 text-sm text-phoenix-light-text-secondary dark:text-phoenix-dark-text-secondary">
+                  Remember wallet and connect automatically
+                </span>
+              </label>
+            </div>
           </div>
         )}
       </div>
